@@ -29,7 +29,7 @@ main{padding:0 0 130px}
 .top select{border-radius:99px;padding:10px 16px}
 .top select option{color:#111}
 h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
 .card{background:none;border:0;text-align:left;cursor:pointer}
 .card .im{aspect-ratio:2/3;border-radius:var(--r);background-size:cover;background-position:center;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
 .bds{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:4px}
@@ -58,9 +58,9 @@ h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
 .eps .chip{padding:6px 14px}
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 @media(max-width:720px){
- #view{padding:76px 14px 0}.hwrap{padding:0 14px}.top{padding:10px 14px}.top:has(.srch.open) .brand{display:flex;align-items:center;gap:10px;font:700 22px "Noto Sans",system-ui,sans-serif;letter-spacing:-.3px;color:#fff;margin-right:8px;white-space:nowrap}
-.brand .logo{width:34px;height:34px;flex:none;filter:drop-shadow(0 4px 12px rgba(238,42,60,.4))}
- .grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+ #view{padding:76px 14px 0}.hwrap{padding:0 14px}.top{padding:10px 14px}.top:has(.srch.open) .brand{display:none}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}
+ .rail .card{flex-basis:112px}
  aside{bottom:10px;padding:6px;border-radius:24px;width:calc(100vw - 20px)}
  nav{justify-content:space-between}
  nav button{min-width:0;flex:1;padding:7px 2px;font-size:11px}
@@ -88,7 +88,7 @@ input.f{background:rgba(255,255,255,.07);border:1px solid var(--line);border-rad
 .rh h2{margin:0;font-size:21px}
 .btn.sm{padding:5px 14px;font-size:13px}
 .rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
-.rail .card{flex:0 0 150px;scroll-snap-align:start}
+.rail .card{flex:0 0 132px;scroll-snap-align:start}
 .rail .msg{flex:1}
 .top{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;align-items:center;gap:10px;padding:14px 24px;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
 .top.solid{background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border-bottom-color:var(--line)}
