@@ -2,14 +2,22 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FlixFlim">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23ee2a3c'/%3E%3Cpath d='M12 9.5v13l11-6.5z' fill='%23fff'/%3E%3C/svg%3E">
 <title>FlixFlim – Xem phim online</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.17/hls.min.js"></script>
 <style>
-:root{--bg:#000;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--line:rgba(255,255,255,.14);--tx:#f4eefb;--mu:#b3aac2;--ac:#ffc46b;--r:16px}
+:root{--cw:140px;--bg:#000;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--line:rgba(255,255,255,.14);--tx:#f4eefb;--mu:#b3aac2;--ac:#ffc46b;--r:16px}
 *{box-sizing:border-box;margin:0}
 html{background:var(--bg)}
 body{color:var(--tx);font:15px/1.5 "Noto Sans","Segoe UI",system-ui,sans-serif;min-height:100vh;background:var(--bg)}
@@ -29,7 +37,7 @@ main{padding:0 0 130px}
 .top select{border-radius:99px;padding:10px 16px}
 .top select option{color:#111}
 h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,var(--cw));justify-content:space-between;gap:18px 16px}
 .card{background:none;border:0;text-align:left;cursor:pointer}
 .card .im{aspect-ratio:2/3;border-radius:var(--r);background-size:cover;background-position:center;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
 .bds{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:4px}
@@ -38,8 +46,9 @@ h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
 .bd.w{background:#fff;color:#e8550a}
 .bd.ep{position:absolute;left:8px;bottom:8px;max-width:calc(100% - 16px)}
 .card:hover .im{transform:translateY(-3px);border-color:var(--ac)}
-.card b{display:block;margin-top:8px;font-weight:600;font-size:14px;line-height:1.3}
-.card small{color:var(--mu)}
+.card{display:block;width:100%;min-width:0}
+.card b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:8px;font-weight:600;font-size:14px;line-height:1.3;min-height:2.6em}
+.card small{display:block;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pager{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:28px}
 .btn{border-radius:99px;padding:9px 18px;cursor:pointer}
 .btn:hover:not(:disabled){border-color:var(--ac)}.btn:disabled{opacity:.4;cursor:default}
@@ -59,7 +68,7 @@ h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 @media(max-width:720px){
  #view{padding:76px 14px 0}.hwrap{padding:0 14px}.top{padding:10px 14px}.top:has(.srch.open) .brand{display:none}
- .grid{grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:10px}
+ .grid{grid-template-columns:repeat(3,1fr);gap:14px 10px}
  .rail{gap:10px}
  .rail .card{flex:0 0 calc((100vw - 44px)/3.3)}
  aside{bottom:10px;padding:6px;border-radius:24px;width:calc(100vw - 20px)}
@@ -89,30 +98,30 @@ input.f{background:rgba(255,255,255,.07);border:1px solid var(--line);border-rad
 .rh h2{margin:0;font-size:21px}
 .btn.sm{padding:5px 14px;font-size:13px}
 .rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
-.rail .card{flex:0 0 132px;scroll-snap-align:start}
+.rail .card{flex:0 0 var(--cw);scroll-snap-align:start}
 .rail .msg{flex:1}
 .top{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;align-items:center;gap:10px;padding:14px 24px;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
 .top.solid{background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border-bottom-color:var(--line)}
 .avt{flex:none;width:42px;height:42px;border-radius:50%;overflow:hidden;padding:0;border:1px solid var(--line);background:linear-gradient(135deg,var(--ac),#ff7a59);color:#241705;font:700 18px "Noto Sans",system-ui,sans-serif;cursor:pointer;display:grid;place-items:center}
 .avt img{width:100%;height:100%;object-fit:cover}
-#view{max-width:1280px;margin:0 auto;padding:84px 24px 0}
+#view{max-width:1500px;margin:0 auto;padding:84px 24px 0}
 #view.home{max-width:none;padding:0}
 #view.home.nohero{padding-top:84px}
-.hwrap{max-width:1280px;margin:0 auto;padding:0 24px}
-.hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(440px,80vh,720px);overflow:hidden;background:var(--glass);margin-bottom:10px}
+.hwrap{max-width:1500px;margin:0 auto;padding:0 24px}
+.hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(300px,52vh,480px);overflow:hidden;background:var(--glass);margin-bottom:10px}
 .hbg{position:absolute;inset:0;background-image:var(--bgl);background-size:cover;background-position:center 20%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 26%),linear-gradient(to top,var(--bg) 2%,rgba(0,0,0,.55) 28%,transparent 62%)}
-.hcont{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 24px 22px}
+.hcont{position:relative;z-index:2;width:100%;max-width:1500px;margin:0 auto;padding:0 24px 22px}
 .hbot{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
-.hinfo h1{font:700 clamp(28px,5vw,48px)/1.1 "Noto Sans",system-ui,sans-serif;text-shadow:0 2px 16px rgba(0,0,0,.6);max-width:20ch}
+.hinfo h1{font:700 clamp(22px,3.6vw,36px)/1.15 "Noto Sans",system-ui,sans-serif;text-shadow:0 2px 16px rgba(0,0,0,.6);max-width:20ch}
 .hinfo small{display:block;margin-top:8px;color:#e4dcf0}
-.play{flex:none;width:68px;height:68px;border-radius:50%;border:0;background:#ee2a3c;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 28px rgba(238,42,60,.45);transition:transform .2s}
+.play{flex:none;width:56px;height:56px;border-radius:50%;border:0;background:#ee2a3c;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 28px rgba(238,42,60,.45);transition:transform .2s}
 .play:hover{transform:scale(1.06)}
-.play svg{width:30px;height:30px;fill:currentColor;margin-left:3px}
+.play svg{width:25px;height:25px;fill:currentColor;margin-left:3px}
 .dots{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .dot{width:10px;height:10px;border-radius:99px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:width .2s,background .2s}
 .dot.on{width:28px;background:#fff}
-@media(max-width:720px){.hbg{background-image:var(--bgp)}.hero{min-height:clamp(420px,78vh,640px)}.hcont{padding:0 16px 18px}.play{width:60px;height:60px}}
+@media(max-width:720px){.hbg{background-image:var(--bgp)}.hero{min-height:clamp(340px,58vh,500px)}.hcont{padding:0 16px 18px}.play{width:50px;height:50px}}
 [hidden]{display:none!important}
 .pwrap{position:relative;aspect-ratio:16/9;max-height:78vh;width:100%;background:#000;border-radius:22px;overflow:hidden;border:1px solid var(--line);margin-bottom:16px;user-select:none;-webkit-user-select:none;outline:0}
 .pwrap:fullscreen{border-radius:0;max-height:none;border:0}
@@ -170,6 +179,20 @@ input.f{background:rgba(255,255,255,.07);border:1px solid var(--line);border-rad
 .dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin-top:14px;font-size:14px}
 .dl dt{color:var(--mu)}.dl dd{margin:0}
 @media(max-width:720px){.pwrap{border-radius:16px}.prow button{width:36px;height:36px}.time{font-size:12px;margin-left:2px}.pctl{padding:0 8px 6px}.bigplay{width:62px;height:62px}.nextbox{bottom:76px;right:10px}}
+@supports(padding:env(safe-area-inset-top)){
+ .top{padding-top:calc(10px + env(safe-area-inset-top,0px))}
+ #view{padding-top:calc(76px + env(safe-area-inset-top,0px))}
+ aside{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+ main{padding-bottom:calc(130px + env(safe-area-inset-bottom,0px))}
+}
+.ibar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:19;width:min(440px,calc(100vw - 20px));display:flex;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:20px;background:rgba(30,26,40,.6);border:1px solid var(--line);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.ibar img{width:38px;height:38px;border-radius:10px;flex:none}
+.ibar span{flex:1;font-size:14px;line-height:1.3}
+.ibar .x{width:34px;height:34px;border:0;background:none;color:var(--mu);font-size:22px;cursor:pointer;border-radius:50%}
+.sheet{position:fixed;inset:0;z-index:40;display:grid;place-items:end center;padding:16px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sheet .box{width:min(440px,100%);padding:22px;border-radius:24px;background:rgba(34,30,46,.85);border:1px solid var(--line);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.sheet h3{margin-bottom:10px}
+.sheet ol{padding-left:20px;margin-bottom:16px;color:#e4dcf0;display:grid;gap:6px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -194,6 +217,13 @@ input.f{background:rgba(255,255,255,.07);border:1px solid var(--line);border-rad
  </div>
  <div id="view"></div>
 </main>
+<div class="ibar" id="ibar" hidden>
+ <img src="icon-192.png" alt="">
+ <span>Thêm FlixFlim vào màn hình chính để mở nhanh hơn</span>
+ <button class="btn pri" id="ibtn">Thêm</button>
+ <button class="x" id="ix" aria-label="Đóng">×</button>
+</div>
+<div class="sheet" id="isheet" hidden><div class="box"><h3>Thêm vào màn hình chính</h3><ol id="isteps"></ol><button class="btn pri" id="iok">Đã hiểu</button></div></div>
 
 <script>
 const SRC={
@@ -406,6 +436,7 @@ function renderMe(note){
   ${reg?'<input class="f" id="pw2" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password" required>':''}
   <div class="err" id="err"></div><button class="btn pri" type="submit">${reg?'Tạo tài khoản':'Đăng nhập'}</button></form>
   <p class="hint">Tài khoản được lưu ngay trên trình duyệt này. Phim yêu thích và lịch sử hiện tại sẽ được chuyển vào tài khoản khi đăng ký.</p></section>`}
+ <section class="panel"><h3>Ứng dụng</h3>${standalone()?'<p class="hint" style="margin:0">Bạn đang dùng FlixFlim như một ứng dụng.</p>':`<p class="hint" style="margin:0 0 4px">Thêm FlixFlim vào màn hình chính để mở nhanh như một ứng dụng.</p><div class="row"><button class="btn pri" id="inst2">Thêm vào màn hình chính</button></div>`}</section>
  <section class="panel"><h3>Nguồn phim</h3><div class="chips">${Object.keys(SRC).map(k=>`<button class="chip ${k===cur?'on':''}" data-src="${k}">${SRC[k].n}</button>`).join('')}</div></section>
  <section class="panel"><h3>Sao lưu</h3><p class="hint" style="margin:0 0 4px">Tải file sao lưu để chuyển dữ liệu sang thiết bị hoặc trình duyệt khác.</p>
   <div class="row"><button class="btn" id="exp">Tải bản sao lưu</button><button class="btn" id="imp">Khôi phục từ file</button></div>
@@ -443,6 +474,7 @@ function renderMe(note){
   }
  };
  view.querySelectorAll('[data-src]').forEach(b=>b.onclick=()=>{cur=b.dataset.src;ls.set('rd_src',cur);renderMe('Đã chuyển nguồn phim sang '+SRC[cur].n+'.')});
+ const i2=$('#inst2'); if(i2)i2.onclick=installApp;
  $('#exp').onclick=()=>{
   const data={app:'rap-dem',user,avatar:getAva()||null,fav:store.get('fav'),his:store.get('his'),at:new Date().toISOString()};
   const a=document.createElement('a');
@@ -722,6 +754,27 @@ $('#sbtn').onclick=()=>{
 };
 qi.addEventListener('keydown',e=>{if(e.key==='Escape'){qi.value='';sr.classList.remove('open');qi.blur()}});
 qi.addEventListener('blur',()=>{if(!qi.value.trim())setTimeout(()=>sr.classList.remove('open'),150)});
+let dip=null;
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const showBar=()=>{if(!standalone()&&!ls.get('rd_inst',0))$('#ibar').hidden=false};
+const hideBar=()=>{$('#ibar').hidden=true};
+function installApp(){
+ if(dip){dip.prompt();dip.userChoice.finally(()=>{dip=null;hideBar()});return}
+ $('#isteps').innerHTML=isIOS()
+  ?'<li>Mở trang này bằng Safari.</li><li>Bấm nút Chia sẻ (hình vuông có mũi tên lên) ở thanh dưới.</li><li>Cuộn xuống và chọn “Thêm vào Màn hình chính”.</li><li>Bấm “Thêm” ở góc trên bên phải.</li>'
+  :'<li>Bấm nút menu ⋮ của trình duyệt.</li><li>Chọn “Thêm vào màn hình chính” hoặc “Cài đặt ứng dụng”.</li><li>Xác nhận “Thêm”.</li>';
+ $('#isheet').hidden=false;
+}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;showBar()});
+addEventListener('appinstalled',()=>{dip=null;hideBar()});
+$('#ibtn').onclick=()=>{hideBar();installApp()};
+$('#ix').onclick=()=>{ls.set('rd_inst',1);hideBar()};
+$('#iok').onclick=()=>{$('#isheet').hidden=true};
+$('#isheet').onclick=e=>{if(e.target.id==='isheet')e.target.hidden=true};
+if(matchMedia('(max-width:720px)').matches)setTimeout(showBar,2500);
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+
 function updateTopAva(){
  const b=$('#avtb'), a=getAva();
  b.innerHTML=a?`<img src="${esc(a)}" alt="">`:esc((user||'K')[0].toUpperCase());
