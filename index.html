@@ -2,787 +2,646 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#000000">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="FlixFlim">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" href="icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23ee2a3c'/%3E%3Cpath d='M12 9.5v13l11-6.5z' fill='%23fff'/%3E%3C/svg%3E">
-<title>FlixFlim – Xem phim online</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.17/hls.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>Flix Anime</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
 <style>
-:root{--cw:140px;--bg:#000;--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--line:rgba(255,255,255,.14);--tx:#f4eefb;--mu:#b3aac2;--ac:#ffc46b;--r:16px}
+:root{--bg:#000;--sf:#17181c;--tx:#fff;--mu:#8e9099;--ac:#ee2a2a;--ln:#26272c}
 *{box-sizing:border-box;margin:0}
-html{background:var(--bg)}
-body{color:var(--tx);font:15px/1.5 "Noto Sans","Segoe UI",system-ui,sans-serif;min-height:100vh;background:var(--bg)}
-button,select,input{font:inherit;color:inherit}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-.glass,.card .im,.top input,.top select,.btn,.chip,.player,.msg-box{background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
-aside{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;padding:8px;border-radius:26px;background:rgba(30,26,40,.55);border:1px solid var(--line);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);box-shadow:0 12px 40px rgba(0,0,0,.45);max-width:calc(100vw - 20px)}
-nav{display:flex;gap:4px}
-nav button{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:74px;padding:8px 10px;background:none;border:0;border-radius:20px;color:var(--mu);cursor:pointer;font-size:12px;white-space:nowrap;transition:background .2s,color .2s}
-nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.heart{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;margin-right:6px}.heart.f{fill:currentColor}
-nav button:hover{background:var(--glass2);color:var(--tx)}
-nav button.on{background:var(--ac);color:#241705;font-weight:600}
-main{padding:0 0 130px}
-.brand{display:flex;align-items:center;gap:10px;font:700 22px "Noto Sans",system-ui,sans-serif;letter-spacing:-.3px;color:#fff;margin-right:8px;white-space:nowrap}
-.brand .logo{width:34px;height:34px;flex:none;filter:drop-shadow(0 4px 12px rgba(238,42,60,.4))}
-.top select{border-radius:99px;padding:10px 16px}
-.top select option{color:#111}
-h2{font:700 26px "Noto Sans",system-ui,sans-serif;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,var(--cw));justify-content:space-between;gap:18px 16px}
-.card{background:none;border:0;text-align:left;cursor:pointer}
-.card .im{aspect-ratio:2/3;border-radius:var(--r);background-size:cover;background-position:center;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
-.bds{position:absolute;left:8px;top:8px;right:8px;display:flex;flex-wrap:wrap;gap:4px}
-.bd{display:inline-block;max-width:100%;padding:2px 8px;border-radius:8px;font-size:11.5px;font-weight:700;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,.35)}
-.bd.o{background:#ff6a1a;color:#fff}
-.bd.w{background:#fff;color:#e8550a}
-.bd.ep{position:absolute;left:8px;bottom:8px;max-width:calc(100% - 16px)}
-.card:hover .im{transform:translateY(-3px);border-color:var(--ac)}
-.card{display:block;width:100%;min-width:0}
-.card b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:8px;font-weight:600;font-size:14px;line-height:1.3;min-height:2.6em}
-.card small{display:block;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pager{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:28px}
-.btn{border-radius:99px;padding:9px 18px;cursor:pointer}
-.btn:hover:not(:disabled){border-color:var(--ac)}.btn:disabled{opacity:.4;cursor:default}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{border-radius:99px;padding:8px 18px;cursor:pointer}
-.chip:hover{border-color:var(--ac)}
-.chip.on{background:var(--ac);color:#241705;border-color:var(--ac);font-weight:600}
+body{background:var(--bg);color:var(--tx);font:400 15px/1.55 "Be Vietnam Pro",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button,.btn{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.9);border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:12px 20px}
+.logo{font-weight:800;font-size:22px}
+.logo b{background:var(--ac);color:#fff;padding:0 7px;border-radius:4px;margin-left:6px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:6px 12px;border-radius:20px;color:var(--mu)}
+nav a.on{background:var(--sf);color:var(--tx);box-shadow:inset 0 -2px var(--ac)}
+#sf{margin-left:auto;display:flex}
+#sf input{background:var(--sf);border:1px solid var(--ln);color:var(--tx);padding:8px 14px;border-radius:20px 0 0 20px;width:min(220px,45vw);font:inherit}
+#sf button{background:var(--ac);color:#fff;border:0;padding:0 16px;border-radius:0 20px 20px 0;font-weight:700}
+#acc{background:var(--sf);border:1px solid var(--ln);border-radius:22px;padding:3px 12px 3px 3px;display:flex;align-items:center;gap:8px}
+#acc.out{padding:6px 14px}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#3b4a8a center/cover;font-weight:700;color:#fff;flex:none}
+main{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+h1{font-size:24px;margin-bottom:18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+h1 button{font-size:13px;font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px}
+.card{display:block}
+.card .im{position:relative;aspect-ratio:2/3;background:var(--sf);border-radius:8px;overflow:hidden}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.card:hover img{transform:scale(1.05)}
+.tag{position:absolute;left:6px;bottom:6px;background:var(--ac);color:#fff;font-size:12px;font-weight:700;padding:1px 8px;border-radius:4px}
+.card h3{font-size:14px;font-weight:500;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card small{color:var(--mu)}
+.btn,.more,h1 button,.bar button,.eps button{background:var(--sf);border:1px solid var(--ln);padding:6px 16px;border-radius:20px;display:inline-block}
+.more{display:block;margin:32px auto 0;padding:10px 28px}
+.pri{background:var(--ac)!important;color:#fff!important;border-color:var(--ac)!important;font-weight:700}
 .msg{color:var(--mu);padding:40px 0;text-align:center}
-.det{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:20px;padding:20px;border-radius:24px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
-.det img{width:200px;max-width:100%;border-radius:var(--r);align-self:flex-start}
-.det .info{flex:1;min-width:240px}
-.det p{color:var(--mu);margin:10px 0;max-width:70ch}
-.player{border-radius:20px;aspect-ratio:16/9;margin:16px 0;overflow:hidden;background:#000}
-.player iframe,.player video{width:100%;height:100%;border:0;display:block}
-.eps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
-.eps .chip{padding:6px 14px}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-@media(max-width:720px){
- #view{padding:76px 14px 0}.hwrap{padding:0 14px}.top{padding:10px 14px}.top:has(.srch.open) .brand{display:none}
- .grid{grid-template-columns:repeat(3,1fr);gap:14px 10px}
- .rail{gap:10px}
- .rail .card{flex:0 0 calc((100vw - 44px)/3.3)}
- aside{bottom:10px;padding:6px;border-radius:24px;width:calc(100vw - 20px)}
- nav{justify-content:space-between}
- nav button{min-width:0;flex:1;padding:7px 2px;font-size:11px}
- .det{padding:14px}
+.det{display:grid;grid-template-columns:220px 1fr;gap:28px}
+.det img{width:100%;border-radius:10px}
+.det h1{margin-bottom:2px}
+.sub{color:var(--mu);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chips span,.chips a{border:1px solid var(--ln);padding:1px 10px;border-radius:14px;font-size:13px}
+.chips a{padding:6px 16px;font-size:15px;background:var(--sf)}
+.chips a:hover{border-color:var(--ac)}
+.desc{max-width:70ch;color:#c9cee3;margin-bottom:12px}
+.player{margin:26px 0 8px;background:#000;border-radius:10px;overflow:hidden;aspect-ratio:16/9}
+.player video,.player iframe{width:100%;height:100%;border:0;display:block}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;color:var(--mu);flex-wrap:wrap}
+.eps{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.eps button{border-radius:6px;padding:5px 14px;min-width:52px}
+.eps button.on{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:700}
+#fv.on{color:var(--ac);border-color:var(--ac)}
+h2{font-size:17px;margin:20px 0 10px}
+#md{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9;display:flex;align-items:center;justify-content:center;padding:16px}
+#md[hidden]{display:none}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:24px;width:min(380px,100%);max-height:90vh;overflow:auto}
+.box h2{margin-top:0}
+.fld{display:block;width:100%;background:var(--bg);border:1px solid var(--ln);color:var(--tx);padding:10px 14px;border-radius:8px;font:inherit;margin-bottom:10px}
+.box .pri{width:100%;padding:10px;border-radius:8px;margin-bottom:12px}
+.er{color:#ff8a80;min-height:1.4em;font-size:13px}
+.pr{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.box a{color:var(--ac)}
+#tt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ac);color:#fff;padding:8px 18px;border-radius:20px;font-weight:700;z-index:10}
+.card .im{border-radius:10px}
+.card .im::after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--ac);background:rgba(0,0,0,.5);opacity:0;transition:opacity .2s}
+.card:hover .im::after{opacity:1}
+.hero{position:relative;margin:-24px -20px 28px;height:min(70vh,520px);overflow:hidden;border-radius:0 0 14px 14px;background:var(--sf)}
+.hero #hb{position:absolute;inset:0;background:center/cover;transition:background-image .4s}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 4%,transparent 70%),linear-gradient(0deg,var(--bg),transparent 45%)}
+#hc{position:absolute;z-index:2;left:40px;bottom:72px;max-width:540px}
+#hc h2{font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.15;margin:0 0 4px}
+#hc .chips{margin:12px 0 18px}
+#hc .btn{padding:10px 26px;font-size:16px}
+.dots{position:absolute;z-index:2;right:24px;bottom:22px;display:flex;gap:8px}
+.dots button{width:56px;height:36px;border-radius:6px;border:2px solid transparent;background:center/cover;opacity:.55;padding:0}
+.dots button.on{border-color:var(--ac);opacity:1}
+.row{margin-bottom:30px}
+.row h2{display:flex;align-items:baseline;margin:0 0 12px;font-size:20px}
+.row h2 a{font-size:13px;color:var(--mu);margin-left:14px;font-weight:400}
+.rw{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x proximity}
+.rw .card{flex:0 0 160px;scroll-snap-align:start}
+.bd{position:absolute;left:0;right:0;top:0;height:440px;background:center top/cover;opacity:.4;z-index:-1;-webkit-mask-image:linear-gradient(#000 30%,transparent);mask-image:linear-gradient(#000 30%,transparent)}
+@media(max-width:640px){#hc{left:16px;bottom:64px;right:16px}.dots button{width:34px;height:24px}.rw .card{flex-basis:130px}}
+body{padding-bottom:76px}
+.logo{color:var(--ac)}.logo b{background:none;color:#fff;padding:0;margin-left:2px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;background:#0b0b0d;border-top:1px solid var(--ln);gap:0;flex-wrap:nowrap;padding:6px 0 max(8px,env(safe-area-inset-bottom))}
+nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;padding:4px 0;border-radius:0;color:var(--mu)}
+nav a.on{background:none;box-shadow:none;color:var(--ac)}
+#acc{padding:2px;border:0;background:none}#acc span:not(.av){display:none}
+#acc.out{padding:7px 14px;background:var(--ac);font-weight:700;border-radius:8px}
+.card .im,.cw .im{border-radius:12px}
+.dots button{width:8px;height:8px;border-radius:4px;background:#fff6!important;opacity:1;border:0}
+.dots button.on{width:26px;background:#fff!important}
+.row h2{justify-content:space-between}.row h2 a{font-size:24px;color:#fff;margin:0}
+.cw{flex:0 0 250px}.cw .im{position:relative;aspect-ratio:16/9;background:var(--sf);overflow:hidden}.cw img{width:100%;height:100%;object-fit:cover}
+.cw h3{font-size:15px;font-weight:500;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cw .im::after{content:"▶";position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.tp{position:relative;flex:0 0 200px;height:225px;display:block}
+.tp .n{position:absolute;left:0;bottom:-10px;font-size:150px;line-height:1;font-weight:800;color:transparent;-webkit-text-stroke:3px #777}
+.tp img{position:absolute;right:0;top:0;width:150px;height:225px;object-fit:cover;border-radius:12px}
+.tabs{margin-bottom:16px}.tabs a.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.tl{aspect-ratio:1/1.1;border-radius:14px;padding:14px;font-weight:700;font-size:17px;line-height:1.25}
+.card2{background:var(--sf);border-radius:14px;margin-bottom:14px;padding:2px 16px}
+.ls{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--ln)}
+.card2 .ls:last-child{border:0}.ls i{color:var(--mu);font-style:normal;font-size:20px}
+:root{--bg:#0b0710;--sf:rgba(255,255,255,.08);--ln:rgba(255,255,255,.14);--ac:#ff4f9a;--mu:#b3a3bd;--gl:rgba(34,22,44,.55)}
+body{background:radial-gradient(60% 40% at 12% 0,#5b1b47 0,transparent 70%),radial-gradient(50% 35% at 100% 30%,#2e1b5e 0,transparent 70%),#0b0710;background-attachment:fixed;padding-bottom:96px}
+header{background:var(--gl);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);border-bottom:1px solid var(--ln);border-radius:0 0 24px 24px}
+.logo{background:linear-gradient(135deg,#ff8cc4,#ff3d8b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo b{color:#fff;margin-left:0}
+.av{background-color:#ff4f9a}
+#sf input{border-radius:999px 0 0 999px}#sf button{border-radius:0 999px 999px 0}
+nav{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));border-radius:28px;background:var(--gl);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid var(--ln);padding:6px;gap:4px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+nav a{border-radius:20px;padding:6px 0}nav a.on{background:rgba(255,79,154,.18);color:var(--ac)}
+.card .im,.cw .im,.tp img{border-radius:20px}
+.card .im{box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.hero{border-radius:0 0 30px 30px}.player,.det img{border-radius:24px}
+.tag{background:rgba(255,79,154,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:10px}
+.cw .im::after{background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:0}
+.tp .n{-webkit-text-stroke:3px rgba(255,79,154,.6)}
+.btn,.more,h1 button,.bar button,.chips span,.chips a{border-radius:999px;border:1px solid var(--ln);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.eps button{border-radius:14px;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.card2{background:var(--sf);border:1px solid var(--ln);border-radius:24px;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+#md{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.box{background:var(--gl);border:1px solid var(--ln);border-radius:28px;-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+.fld{background:rgba(255,255,255,.07);border-radius:14px}.box .pri{border-radius:14px}
+.pri,.eps button.on,#sf button,#tt,.tabs a.on,#acc.out{background:linear-gradient(135deg,#ff7ab8,#ff3d8b)!important;border-color:transparent!important;color:#fff!important}
+#tt{border-radius:999px}
+.logo{display:flex;align-items:center;gap:6px}
+.player{position:relative}.player video{object-fit:contain;background:#000}.player:fullscreen{border-radius:0;aspect-ratio:auto}
+.ctl{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;background:linear-gradient(transparent,rgba(0,0,0,.75));transition:opacity .25s}
+.player.hide .ctl{opacity:0;pointer-events:none}
+.ctl input{width:100%;accent-color:var(--ac)}
+.cr{display:flex;align-items:center;gap:6px}.cr i{flex:1}
+.cr button{background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:0;border-radius:999px;color:#fff;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;gap:2px;padding:0 10px}
+.cr small{font-size:11px;font-weight:700}.cr span{font-size:13px;margin-left:6px;white-space:nowrap}
+#pb svg{fill:currentColor}
+#sf{margin-left:auto;position:relative;display:flex;align-items:center}
+#sf #sb{width:36px;height:36px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--sf)!important;border:1px solid var(--ln)!important;color:#fff!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+#sf input{display:none;position:fixed;top:66px;left:12px;right:12px;width:auto;height:44px;border-radius:999px;padding:0 18px;background:var(--gl);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid var(--ln);z-index:7}
+#sf.open input{display:block}
+.card{min-width:0}
+.card .im{aspect-ratio:2/3;width:100%}
+.card .im img{width:100%;height:100%;object-fit:cover;display:block}
+.card h3{line-height:1.4;height:2.8em;margin-top:8px}
+.card small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rw .card{flex:0 0 160px;width:160px}
+.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+@media(max-width:640px){.rw .card{flex-basis:130px;width:130px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}
+header{position:relative;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-radius:0;box-shadow:none}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+body{min-height:100dvh;-webkit-touch-callout:none;-webkit-font-smoothing:antialiased;touch-action:manipulation;-webkit-user-select:none;user-select:none;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+input,textarea{-webkit-user-select:text;user-select:text;font-size:16px}
+header{padding-top:calc(env(safe-area-inset-top) + 10px)}
+#sf input{top:calc(env(safe-area-inset-top) + 66px)}
+main{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.rw{-webkit-overflow-scrolling:touch;scrollbar-width:none}.rw::-webkit-scrollbar{display:none}
+.card,.btn,.more,.eps button,.cr button,.ls,nav a,.tl,.chips a{transition:transform .15s,opacity .15s}
+.card:active,.btn:active,.more:active,.eps button:active,.cr button:active,.ls:active,nav a:active,.tl:active,.chips a:active{transform:scale(.96);opacity:.85}
+.btn,.more,.chips a,.eps button{min-height:40px}
+#tt{bottom:calc(96px + env(safe-area-inset-bottom))}
+.ctl{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+@media(max-width:640px){#md{align-items:flex-end;padding:0}.box{width:100%;max-height:85dvh;border-radius:28px 28px 0 0;padding-bottom:calc(24px + env(safe-area-inset-bottom))}main{padding-top:8px}.hero{margin-top:-8px}}
+@media(max-width:640px){.det{grid-template-columns:1fr}.det img{max-width:200px}}
+
+/* === Fix v2 === */
+:root{--hh:calc(env(safe-area-inset-top) + 70px)}
+/* 1+3: thẻ Xem tiếp cố định kích thước, không bị tiêu đề dài kéo giãn */
+.cw{flex:0 0 240px;width:240px;min-width:0;max-width:240px}
+.cw .im{width:100%;aspect-ratio:16/9}
+.cw .im img{display:block;width:100%;height:100%;object-fit:cover}
+.cw h3{display:block;width:100%;min-width:0}
+.row{margin-bottom:20px}
+.rw{padding-bottom:0;align-items:flex-start}
+/* 2: header trong suốt, nổi trên banner, không còn nền đen */
+header{position:absolute;top:0;left:0;right:0;z-index:7;background:linear-gradient(180deg,rgba(11,7,16,.55),rgba(11,7,16,0));-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:none}
+main{padding-top:var(--hh)}
+.hero{margin-top:calc(-1 * var(--hh))}
+@media(max-width:640px){main{padding-top:var(--hh)}.hero{margin-top:calc(-1 * var(--hh))}}
+
+/* === Fix v3 === */
+/* trình phát: bỏ khoảng trống dưới thanh điều khiển (safe-area chỉ áp dụng khi toàn màn hình) */
+.ctl{padding-bottom:10px}
+.player:fullscreen .ctl,.player:-webkit-full-screen .ctl{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+/* Top 10: hết rung/trượt dọc, số không bị cắt */
+.rw{overflow-y:hidden;overscroll-behavior-x:contain}
+.tp{overflow:hidden;scroll-snap-align:start}
+.tp .n{bottom:0;line-height:.8}
+
+/* === Fix v4: toàn màn hình tự xoay ngang === */
+html.fsl,html.fsl body{overflow:hidden}
+.player.fake{position:fixed;z-index:100;margin:0;border-radius:0;aspect-ratio:auto;top:0;left:0;width:100vw;height:100vh;height:100dvh;background:#000}
+@media (orientation:portrait){
+  .player.fake{left:100vw;width:100vh;width:100dvh;height:100vw;transform-origin:top left;transform:rotate(90deg)}
 }
-.panel{padding:18px 20px;border-radius:24px;margin-bottom:16px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
-.panel h3{font-size:16px;margin-bottom:12px}
-.prof{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.ava{width:88px;height:88px;border-radius:50%;overflow:hidden;padding:0;cursor:pointer;display:grid;place-items:center;background:linear-gradient(135deg,var(--ac),#ff7a59);border:2px solid var(--line);font:700 36px "Noto Sans",system-ui,sans-serif;color:#241705}
-.ava img{width:100%;height:100%;object-fit:cover}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.authf{display:grid;gap:10px;max-width:360px}
-input.f{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:12px;padding:10px 14px;width:100%}
-.err{color:#ff9b8a;min-height:1.3em;font-size:14px}
-.ok{color:var(--ac);margin-bottom:14px}
-.btn.pri{background:var(--ac);color:#241705;border-color:var(--ac);font-weight:600}
-.srch{margin-left:auto;display:flex;align-items:center;height:42px;border-radius:99px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
-.srch input{width:0;padding:0;opacity:0;border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;outline:0;transition:width .25s,padding .25s,opacity .2s}
-.srch.open input{width:min(260px,52vw);padding:0 4px 0 18px;opacity:1}
-.srch input::placeholder{color:var(--mu)}
-.srch button{width:40px;height:40px;border:0;background:none;border-radius:50%;cursor:pointer;display:grid;place-items:center;color:var(--tx)}
-.srch button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.rowsec{margin-bottom:26px}
-.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.rh h2{margin:0;font-size:21px}
-.btn.sm{padding:5px 14px;font-size:13px}
-.rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
-.rail .card{flex:0 0 var(--cw);scroll-snap-align:start}
-.rail .msg{flex:1}
-.top{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;align-items:center;gap:10px;padding:14px 24px;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
-.top.solid{background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border-bottom-color:var(--line)}
-.avt{flex:none;width:42px;height:42px;border-radius:50%;overflow:hidden;padding:0;border:1px solid var(--line);background:linear-gradient(135deg,var(--ac),#ff7a59);color:#241705;font:700 18px "Noto Sans",system-ui,sans-serif;cursor:pointer;display:grid;place-items:center}
-.avt img{width:100%;height:100%;object-fit:cover}
-#view{max-width:1500px;margin:0 auto;padding:84px 24px 0}
-#view.home{max-width:none;padding:0}
-#view.home.nohero{padding-top:84px}
-.hwrap{max-width:1500px;margin:0 auto;padding:0 24px}
-.hero{position:relative;display:flex;align-items:flex-end;min-height:clamp(300px,52vh,480px);overflow:hidden;background:var(--glass);margin-bottom:10px}
-.hbg{position:absolute;inset:0;background-image:var(--bgl);background-size:cover;background-position:center 20%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 26%),linear-gradient(to top,var(--bg) 2%,rgba(0,0,0,.55) 28%,transparent 62%)}
-.hcont{position:relative;z-index:2;width:100%;max-width:1500px;margin:0 auto;padding:0 24px 22px}
-.hbot{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
-.hinfo h1{font:700 clamp(22px,3.6vw,36px)/1.15 "Noto Sans",system-ui,sans-serif;text-shadow:0 2px 16px rgba(0,0,0,.6);max-width:20ch}
-.hinfo small{display:block;margin-top:8px;color:#e4dcf0}
-.play{flex:none;width:56px;height:56px;border-radius:50%;border:0;background:#ee2a3c;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 28px rgba(238,42,60,.45);transition:transform .2s}
-.play:hover{transform:scale(1.06)}
-.play svg{width:25px;height:25px;fill:currentColor;margin-left:3px}
-.dots{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-.dot{width:10px;height:10px;border-radius:99px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:width .2s,background .2s}
-.dot.on{width:28px;background:#fff}
-@media(max-width:720px){.hbg{background-image:var(--bgp)}.hero{min-height:clamp(340px,58vh,500px)}.hcont{padding:0 16px 18px}.play{width:50px;height:50px}}
-[hidden]{display:none!important}
-.pwrap{position:relative;aspect-ratio:16/9;max-height:78vh;width:100%;background:#000;border-radius:22px;overflow:hidden;border:1px solid var(--line);margin-bottom:16px;user-select:none;-webkit-user-select:none;outline:0}
-.pwrap:fullscreen{border-radius:0;max-height:none;border:0}
-.pwrap:-webkit-full-screen{border-radius:0;max-height:none;border:0}
-.pwrap video,.pwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;object-fit:contain}
-.pwrap iframe{display:none}.pwrap.emb iframe{display:block}.pwrap.emb video,.pwrap.emb .pov{display:none}
-.pov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .25s}
-.pov::before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);pointer-events:none}
-.surf{position:absolute;inset:0;cursor:pointer}
-.ptop{position:absolute;top:0;left:0;right:0;padding:14px 18px 30px;font-weight:600;background:linear-gradient(rgba(0,0,0,.7),transparent);pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pwrap.idle:not(.paused) .pov{opacity:0;cursor:none}
-.bigplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2;transition:opacity .2s}
-.bigplay .ic{width:34px;height:34px;margin-left:4px}
-.pwrap:not(.paused) .bigplay{opacity:0;pointer-events:none}
-.pctl{position:relative;z-index:2;padding:0 14px 10px}
-.seek{position:relative;height:20px;cursor:pointer;touch-action:none;display:flex;align-items:center}
-.seek::before{content:"";position:absolute;left:0;right:0;height:4px;border-radius:4px;background:rgba(255,255,255,.25);transition:height .15s}
-.seek:hover::before{height:6px}
-.buf,.prog{position:absolute;left:0;height:4px;border-radius:4px;width:0;pointer-events:none}
-.buf{background:rgba(255,255,255,.35)}.prog{background:var(--ac)}
-.knob{position:absolute;top:50%;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(0,0,0,.5);pointer-events:none}
-.prow{display:flex;align-items:center;gap:2px}
-.prow button{width:42px;height:42px;border:0;border-radius:50%;background:none;color:#fff;cursor:pointer;display:grid;place-items:center}
-.prow button:hover:not(:disabled){background:rgba(255,255,255,.18)}
-.prow button:disabled{opacity:.35;cursor:default}
-.time{font-size:13px;margin-left:6px;color:#eee;font-variant-numeric:tabular-nums;white-space:nowrap}
-.sp{flex:1}
-.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ic.fl{fill:currentColor;stroke:none}
-.spin{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spn .8s linear infinite;display:none;z-index:3;pointer-events:none}
-.pwrap.buf .spin{display:block}
-@keyframes spn{to{transform:rotate(360deg)}}
-.ptoast{position:absolute;top:16%;left:50%;transform:translateX(-50%);padding:6px 16px;border-radius:99px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line);font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:4;white-space:nowrap}
-.ptoast.show{opacity:1}
-.nextbox{position:absolute;right:16px;bottom:84px;z-index:5;padding:14px 16px;border-radius:18px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
-.ttl{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
-.ttl h1{font-size:clamp(22px,3.4vw,32px);line-height:1.2}
-.ttl small{color:var(--mu)}
-.tgs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.tg{padding:4px 12px;border-radius:99px;font-size:13px;background:var(--glass);border:1px solid var(--line)}
-.tg.hl{background:var(--ac);color:#241705;border-color:var(--ac);font-weight:600}
-.eh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
-.eh h3{margin:0}.cnt{color:var(--mu);font-size:13px}
-.sv{margin-bottom:12px}
-.epg{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;max-height:260px;overflow-y:auto;padding:2px}
-.epb{padding:9px 6px;border-radius:12px;background:var(--glass);border:1px solid var(--line);cursor:pointer;font-size:14px}
-.epb:hover{border-color:var(--ac)}
-.epb.on{background:var(--ac);color:#241705;border-color:var(--ac);font-weight:600}
-.parts{margin-top:18px}.parts h4{font-size:14px;color:var(--mu);margin-bottom:8px;font-weight:500}
-.syn{display:flex;gap:22px;flex-wrap:wrap}
-.syn img{width:160px;max-width:100%;border-radius:14px;align-self:flex-start}
-.syn .sb{flex:1;min-width:240px}
-.syn .txt{color:#d6cde4;max-width:75ch;white-space:pre-line;margin-bottom:8px}
-.syn .txt.clamp{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin-top:14px;font-size:14px}
-.dl dt{color:var(--mu)}.dl dd{margin:0}
-@media(max-width:720px){.pwrap{border-radius:16px}.prow button{width:36px;height:36px}.time{font-size:12px;margin-left:2px}.pctl{padding:0 8px 6px}.bigplay{width:62px;height:62px}.nextbox{bottom:76px;right:10px}}
-@supports(padding:env(safe-area-inset-top)){
- .top{padding-top:calc(10px + env(safe-area-inset-top,0px))}
- #view{padding-top:calc(76px + env(safe-area-inset-top,0px))}
- aside{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
- main{padding-bottom:calc(130px + env(safe-area-inset-bottom,0px))}
+.player.fake video{object-fit:contain}
+.player.fake .ctl{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+
+/* === Fix v5: tối ưu iPad === */
+@media (min-width:768px){
+  :root{--hh:calc(env(safe-area-inset-top) + 88px);--px:max(36px,env(safe-area-inset-left))}
+  header{padding-left:var(--px);padding-right:max(36px,env(safe-area-inset-right));padding-bottom:16px}
+  .logo{font-size:30px;gap:10px}.logo svg{width:38px;height:38px}
+  #acc,#sf button{min-height:44px}
+  main{max-width:1440px;padding-left:var(--px);padding-right:max(36px,env(safe-area-inset-right))}
+  .hero{height:min(58vh,600px);margin-left:calc(-1 * var(--px));margin-right:calc(-1 * max(36px,env(safe-area-inset-right)));border-radius:0 0 40px 40px}
+  #hc{left:var(--px);bottom:84px;max-width:660px}
+  #hc h2{font-size:clamp(34px,4.6vw,54px)}
+  #hc .btn{padding:14px 34px;font-size:18px}
+  .dots{right:var(--px);bottom:34px}
+  .row{margin-bottom:30px}
+  .row h2{font-size:24px;margin-bottom:14px}
+  .rw{gap:20px}
+  .rw .card{flex:0 0 184px;width:184px}
+  .card h3{font-size:15px}
+  .cw{flex:0 0 300px;width:300px;max-width:300px}
+  .cw h3{font-size:16px}
+  .tp{flex:0 0 235px;height:264px}
+  .tp img{width:176px;height:264px}
+  .tp .n{font-size:176px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:22px}
+  .tiles{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+  .det{grid-template-columns:300px 1fr;gap:36px;align-items:start}
+  .det img{max-width:none}
+  .det h1{font-size:34px}
+  .desc{font-size:17px;line-height:1.65}
+  .chips a,.chips span{font-size:15px}
+  .player{margin-top:20px}
+  .eps button{min-height:44px;min-width:64px;font-size:16px}
+  .btn,.more,.bar button{min-height:44px}
+  nav{left:50%;right:auto;width:min(640px,calc(100% - 48px));transform:translateX(-50%)}
+  nav a{font-size:13px}
+  .box{width:min(480px,100%);padding:30px}
+  #md{align-items:center}
+  .card2{max-width:760px}
 }
-.ibar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:19;width:min(440px,calc(100vw - 20px));display:flex;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:20px;background:rgba(30,26,40,.6);border:1px solid var(--line);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.ibar img{width:38px;height:38px;border-radius:10px;flex:none}
-.ibar span{flex:1;font-size:14px;line-height:1.3}
-.ibar .x{width:34px;height:34px;border:0;background:none;color:var(--mu);font-size:22px;cursor:pointer;border-radius:50%}
-.sheet{position:fixed;inset:0;z-index:40;display:grid;place-items:end center;padding:16px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.sheet .box{width:min(440px,100%);padding:22px;border-radius:24px;background:rgba(34,30,46,.85);border:1px solid var(--line);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
-.sheet h3{margin-bottom:10px}
-.sheet ol{padding-left:20px;margin-bottom:16px;color:#e4dcf0;display:grid;gap:6px}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:1024px){
+  .hero{height:min(62vh,660px)}
+  .rw .card{flex-basis:200px;width:200px}
+  .cw{flex-basis:340px;width:340px;max-width:340px}
+  .tp{flex-basis:250px;height:285px}.tp img{width:190px;height:285px}.tp .n{font-size:190px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px}
+  .det{grid-template-columns:340px 1fr}
+}
+/* iPad: dùng bút/ngón tay nên bỏ hiệu ứng hover dính */
+@media (hover:none){.card:hover img{transform:none}.card:hover .im::after{opacity:0}}
+
+/* === Fix v6: màn hình tỉ lệ 4:3 (iPad 1024x768, 768x1024, màn 4:3) === */
+/* Ngang 4:3 */
+@media (min-width:768px) and (min-aspect-ratio:5/4) and (max-aspect-ratio:7/5){
+  :root{--hh:calc(env(safe-area-inset-top) + 78px);--px:max(28px,env(safe-area-inset-left))}
+  header{padding-bottom:12px}
+  .logo{font-size:26px}.logo svg{width:32px;height:32px}
+  .hero{height:min(56vh,520px)}
+  #hc{bottom:64px;max-width:min(580px,60vw)}
+  #hc h2{font-size:clamp(30px,4vw,44px)}
+  #hc .chips{margin:8px 0 14px}
+  .row{margin-bottom:22px}
+  .rw .card{flex-basis:clamp(168px,17vw,208px);width:clamp(168px,17vw,208px)}
+  .cw{flex-basis:clamp(270px,30vw,330px);width:clamp(270px,30vw,330px);max-width:clamp(270px,30vw,330px)}
+  .tp{flex-basis:clamp(210px,22vw,250px);height:clamp(250px,27vw,285px)}
+  .tp img{width:clamp(160px,17vw,190px);height:clamp(250px,27vw,285px)}
+  .tp .n{font-size:clamp(150px,17vw,190px)}
+  .grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+  .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .det{grid-template-columns:clamp(240px,26vw,320px) 1fr;gap:30px}
+  /* trình phát luôn nằm gọn trong màn hình, không bị cắt đáy */
+  .player{width:min(100%,calc((100dvh - 150px) * 16 / 9));margin-left:auto;margin-right:auto}
+  .player.fake{width:100vw;margin:0}
+  .bar,#ps{max-width:100%}
+  nav{width:min(600px,calc(100% - 48px))}
+}
+/* Dọc 4:3 */
+@media (min-width:600px) and (min-aspect-ratio:5/7) and (max-aspect-ratio:4/5){
+  :root{--px:max(30px,env(safe-area-inset-left))}
+  .hero{height:min(44vh,520px)}
+  #hc{bottom:60px;max-width:70vw}
+  #hc h2{font-size:clamp(30px,5.4vw,46px)}
+  .rw .card{flex-basis:clamp(150px,23vw,190px);width:clamp(150px,23vw,190px)}
+  .cw{flex-basis:clamp(260px,38vw,310px);width:clamp(260px,38vw,310px);max-width:clamp(260px,38vw,310px)}
+  .tp{flex-basis:clamp(200px,30vw,240px);height:clamp(240px,36vw,270px)}
+  .tp img{width:clamp(150px,22vw,180px);height:clamp(240px,36vw,270px)}
+  .tp .n{font-size:clamp(140px,22vw,180px)}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .det{grid-template-columns:clamp(220px,32vw,280px) 1fr;gap:28px}
+  .player{width:100%}
+}
+
+/* === Fix v7: iPad xoay ngang -> thanh bên phải; xoay dọc -> thanh dưới === */
+@media (min-width:768px) and (min-height:600px) and (orientation:landscape){
+  :root{--sb:calc(104px + env(safe-area-inset-right))}
+  body{padding-left:0;padding-right:var(--sb);padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+  header{left:0;right:var(--sb)}
+  nav{
+    top:50%;bottom:auto;left:auto;right:max(14px,env(safe-area-inset-right));
+    width:84px;max-height:calc(100dvh - 40px);
+    transform:translateY(-50%);
+    flex-direction:column;justify-content:center;gap:6px;padding:10px 6px;
+    border-radius:32px;overflow-y:auto;scrollbar-width:none
+  }
+  nav::-webkit-scrollbar{display:none}
+  nav a{flex:0 0 auto;width:100%;padding:12px 0;border-radius:24px;font-size:12px}
+  #tt{bottom:24px}
+  .player.fake{left:0}
+}
+}
 </style>
+<meta name="theme-color" content="#0b0710">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flix Anime">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 </head>
 <body>
-<aside>
- <nav id="nav">
-  <button data-v="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Trang chủ</button>
-  <button data-v="le"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 3v18M17 3v18M3 12h18M3 7.5h4M3 16.5h4M17 7.5h4M17 16.5h4"/></svg>Phim lẻ</button>
-  <button data-v="bo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="3"/><path d="m17 2-5 5-5-5"/></svg>Phim bộ</button>
-  <button data-v="genre"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>Thể loại</button>
-  <button data-v="me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Cá nhân</button>
- </nav>
-</aside>
-<main>
- <div class="top">
-  <div class="brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc46b"/><stop offset="1" stop-color="#ee2a3c"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><path d="M12 9.5v13l11-6.5z" fill="#fff"/><path d="M5 8v2M5 14v2M5 20v2M27 8v2M27 14v2M27 20v2" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/></svg><span>FlixFlim</span></div>
-  <div class="srch" id="srch">
-   <input id="q" type="search" placeholder="Tìm phim..." aria-label="Tìm phim">
-   <button id="sbtn" aria-label="Tìm kiếm"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-  </div>
-  <button class="avt" id="avtb" aria-label="Cá nhân"></button>
- </div>
- <div id="view"></div>
-</main>
-<div class="ibar" id="ibar" hidden>
- <img src="icon-192.png" alt="">
- <span>Thêm FlixFlim vào màn hình chính để mở nhanh hơn</span>
- <button class="btn pri" id="ibtn">Thêm</button>
- <button class="x" id="ix" aria-label="Đóng">×</button>
-</div>
-<div class="sheet" id="isheet" hidden><div class="box"><h3>Thêm vào màn hình chính</h3><ol id="isteps"></ol><button class="btn pri" id="iok">Đã hiểu</button></div></div>
-
+<header>
+  <a class="logo" href="#/"><svg width="28" height="28" viewBox="-32 -32 64 64" aria-hidden="true"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3ef"/><stop offset="1" stop-color="#ff7ab8"/></linearGradient><path id="pt" d="M0-3C-10-8-12-22-3-27L0-23L3-27C12-22 10-8 0-3Z" fill="url(#pg)"/></defs><use href="#pt"/><use href="#pt" transform="rotate(72)"/><use href="#pt" transform="rotate(144)"/><use href="#pt" transform="rotate(216)"/><use href="#pt" transform="rotate(288)"/><circle r="3" fill="#ffcf5a"/></svg>Flix<b>Anime</b></a>
+  <form id="sf"><button type="button" id="sb" aria-label="Tìm kiếm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg></button><input id="q" type="search" placeholder="Tìm phim hoạt hình…" aria-label="Tìm phim"></form>
+</header>
+<nav id="nav"></nav>
+<main id="app"></main>
+<div id="md" hidden></div>
 <script>
-const SRC={
- kk:{n:'KKPhim',b:'https://phimapi.com',
-  home:p=>`/danh-sach/phim-moi-cap-nhat-v3?page=${p}`,
-  le:p=>`/v1/api/danh-sach/phim-le?page=${p}&limit=24`,
-  bo:p=>`/v1/api/danh-sach/phim-bo?page=${p}&limit=24`,
-  g:(s,p)=>`/v1/api/the-loai/${s}?page=${p}&limit=24`,
-  q:(k,p)=>`/v1/api/tim-kiem?keyword=${k}&page=${p}&limit=24`,
-  c:(s,p)=>`/v1/api/quoc-gia/${s}?page=${p}&limit=24`,
-  h:p=>`/v1/api/danh-sach/hoat-hinh?page=${p}&limit=24`,
-  d:s=>`/phim/${s}`},
- nc:{n:'NguonC',b:'https://phim.nguonc.com/api',
-  home:p=>`/films/phim-moi-cap-nhat?page=${p}`,
-  le:p=>`/films/danh-sach/phim-le?page=${p}`,
-  bo:p=>`/films/danh-sach/phim-bo?page=${p}`,
-  g:(s,p)=>`/films/the-loai/${s}?page=${p}`,
-  q:(k,p)=>`/films/search?keyword=${k}`,
-  c:(s,p)=>`/films/quoc-gia/${s}?page=${p}`,
-  h:p=>`/films/danh-sach/hoat-hinh?page=${p}`,
-  d:s=>`/film/${s}`},
- vs:{n:'VSMov',b:'https://vsmov.com/api',
-  home:p=>`/danh-sach/phim-moi-cap-nhat?page=${p}`,
-  le:p=>`/danh-sach/phim-le?page=${p}`,
-  bo:p=>`/danh-sach/phim-bo?page=${p}`,
-  g:(s,p)=>`/the-loai/${s}?page=${p}`,
-  q:(k,p)=>`/tim-kiem?keyword=${k}&page=${p}`,
-  c:(s,p)=>`/quoc-gia/${s}?page=${p}`,
-  h:p=>`/danh-sach/hoat-hinh?page=${p}`,
-  d:s=>`/phim/${s}`}
-};
-const GENRES=[['hanh-dong','Hành động'],['tinh-cam','Tình cảm'],['hai-huoc','Hài hước'],['co-trang','Cổ trang'],['tam-ly','Tâm lý'],['hinh-su','Hình sự'],['chien-tranh','Chiến tranh'],['the-thao','Thể thao'],['vo-thuat','Võ thuật'],['vien-tuong','Viễn tưởng'],['phieu-luu','Phiêu lưu'],['khoa-hoc','Khoa học'],['kinh-di','Kinh dị'],['am-nhac','Âm nhạc'],['than-thoai','Thần thoại'],['hoat-hinh','Hoạt hình'],['gia-dinh','Gia đình'],['bi-an','Bí ẩn'],['hoc-duong','Học đường'],['tai-lieu','Tài liệu']];
-
-const $=s=>document.querySelector(s), view=$('#view');
-let st={v:'home',g:null,q:'',p:1,tab:'fav'}, cur='kk';
-
+const CATS=[['phim-moi','Mới cập nhật','c'],['phim-bo','Phim bộ','c'],['phim-le','Phim lẻ','c'],['hoat-hinh','Hoạt hình','c'],['g','Thể loại',''],['fav','Yêu thích',''],['his','Lịch sử','']];
+const $=s=>document.querySelector(s),app=$('#app');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ls={
- get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
- set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
- del(k){try{localStorage.removeItem(k)}catch(e){}}
+const img=p=>p||'';
+function toast(t){const e=document.createElement('div');e.id='tt';e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),2200)}
+
+/* ---- Dữ liệu & tài khoản (lưu trong trình duyệt) ---- */
+let db={u:{},cur:null,g:{fav:[],his:[]}};
+try{db=Object.assign(db,JSON.parse(localStorage.getItem('cp_db')||'{}'))}catch(e){}
+const persist=()=>{try{localStorage.setItem('cp_db',JSON.stringify(db))}catch(e){toast('Bộ nhớ đầy, hãy dùng ảnh avatar nhỏ hơn')}};
+let pushT;const save=()=>{persist();if(db.cur&&db.u[db.cur]&&db.u[db.cur].cloud){clearTimeout(pushT);pushT=setTimeout(push,2500)}};
+const me=()=>db.cur&&db.u[db.cur]?db.u[db.cur]:db.g;
+async function hash(p,s){if(!window.crypto||!crypto.subtle)return btoa(unescape(encodeURIComponent(s+p)));const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+const avh=(n,av,sz)=>`<span class="av" style="width:${sz}px;height:${sz}px;font-size:${sz*.45}px;${av?`background-image:url(${av})`:''}">${av?'':esc(n[0].toUpperCase())}</span>`;
+function renderAcc(){const b=$('#acc');if(!b)return;if(db.cur&&db.u[db.cur]){b.className='';b.innerHTML=avh(db.cur,db.u[db.cur].av,32)+'<span>'+esc(db.cur)+'</span>';b.onclick=()=>location.hash='#/me'}else{b.className='out';b.textContent='Đăng nhập';b.onclick=()=>auth('in')}}
+function modal(h){$('#md').innerHTML='<div class="box">'+h+'</div>';$('#md').hidden=false}
+const closeM=()=>$('#md').hidden=true;
+$('#md').onclick=e=>{if(e.target.id==='md')closeM()};
+function restore(txt){
+  try{const o=JSON.parse(txt),d=o.data;if(o.app!=='cine-play'||!o.user||!Array.isArray(d.fav)||!Array.isArray(d.his)||typeof d.h!=='string')throw 0;
+    const ex=db.u[o.user];
+    if(ex){const m=(a,b)=>[...a,...b.filter(x=>!a.some(y=>y.slug===x.slug))];ex.fav=m(ex.fav,d.fav);ex.his=m(ex.his,d.his).slice(0,60)}else db.u[o.user]=d;
+    db.cur=o.user;save();closeM();renderAcc();route();toast('Đã khôi phục dữ liệu')}
+  catch(e){toast('File sao lưu không hợp lệ')}}
+
+/* ---- Sao lưu đám mây (Firebase Auth + Firestore, gọi bằng REST) ----
+   Điền apiKey và projectId của dự án Firebase để bật. Để trống thì chỉ dùng tài khoản trên máy + file sao lưu. */
+const CLOUD={apiKey:'AIzaSyBAHBUrFVD4KQYmhzVUV80TKb0DoQxyftg',projectId:'flixanime-1f434'};
+const cloudOn=()=>!!(CLOUD.apiKey&&CLOUD.projectId);
+const cmail=n=>n+'@flixanime.app';
+async function cAuth(n,p,up){
+  const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:'+(up?'signUp':'signInWithPassword')+'?key='+CLOUD.apiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:cmail(n),password:p,returnSecureToken:true})});
+  const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||'ERR');
+  return{uid:j.localId,rt:j.refreshToken,tok:j.idToken,exp:Date.now()+(+j.expiresIn-60)*1000}}
+async function cTok(u){const c=u.cloud;if(c.tok&&c.exp>Date.now())return c.tok;
+  const r=await fetch('https://securetoken.googleapis.com/v1/token?key='+CLOUD.apiKey,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(c.rt)});
+  const j=await r.json();if(!r.ok)throw new Error('TOKEN');c.tok=j.id_token;c.rt=j.refresh_token;c.exp=Date.now()+(+j.expires_in-60)*1000;persist();return c.tok}
+const cDoc=u=>`https://firestore.googleapis.com/v1/projects/${CLOUD.projectId}/databases/(default)/documents/users/${u.cloud.uid}`;
+async function cGet(u){const r=await fetch(cDoc(u),{headers:{Authorization:'Bearer '+await cTok(u)}});if(r.status===404)return null;const j=await r.json();if(!r.ok)throw new Error('GET');return JSON.parse(j.fields.d.stringValue)}
+async function cPut(u){const t=Date.now();
+  const r=await fetch(cDoc(u)+'?updateMask.fieldPaths=d',{method:'PATCH',headers:{Authorization:'Bearer '+await cTok(u),'Content-Type':'application/json'},body:JSON.stringify({fields:{d:{stringValue:JSON.stringify({fav:u.fav,his:u.his,av:u.av,t})}}})});
+  if(!r.ok)throw new Error('PUT');u.sync=t;persist()}
+async function push(){const u=db.cur&&db.u[db.cur];if(cloudOn()&&u&&u.cloud)try{await cPut(u)}catch(e){}}
+function mergeIn(u,d){const m=(a,b)=>[...a,...b.filter(x=>!a.some(y=>y.slug===x.slug))];u.fav=m(u.fav,d.fav||[]);u.his=m(u.his,d.his||[]).slice(0,60);if(!u.av&&d.av)u.av=d.av}
+let lastPull=0;
+async function pullSync(u,force){
+  if(!cloudOn()||!u||!u.cloud||(!force&&Date.now()-lastPull<60000))return false;lastPull=Date.now();
+  try{const d=await cGet(u);
+    if(d&&d.t>(u.sync||0)){u.fav=d.fav||[];u.his=d.his||[];if(d.av)u.av=d.av;u.sync=d.t;persist();renderAcc();return true}
+    if(!d)await cPut(u);return false}catch(e){return null}}
+async function cloudLogin(n,p,up,er){
+  if(p.length<6){er.textContent='Mật khẩu cần ít nhất 6 ký tự';return false}
+  const loc=db.u[n];
+  if(up&&loc){er.textContent='Tên này đã có người dùng';return false}
+  er.textContent='Đang kết nối…';
+  let c,m='';
+  try{c=await cAuth(n,p,up)}catch(e){m=e.message||'';
+    /* tài khoản cũ chỉ có trên máy: đúng mật khẩu thì tự tạo bản đám mây */
+    if(!up&&/EMAIL_NOT_FOUND|INVALID_LOGIN_CREDENTIALS|INVALID_PASSWORD/.test(m)&&loc&&loc.h===await hash(p,loc.s)){try{c=await cAuth(n,p,true)}catch(_){}}}
+  if(!c){er.textContent=/EMAIL_EXISTS/.test(m)?'Tên này đã có người dùng':/EMAIL_NOT_FOUND|INVALID|PASSWORD/.test(m)?'Sai tên đăng nhập hoặc mật khẩu':/WEAK/.test(m)?'Mật khẩu cần ít nhất 6 ký tự':/TOO_MANY/.test(m)?'Thử quá nhiều lần, hãy đợi một lúc':'Không kết nối được đám mây';return false}
+  const sl=Math.random().toString(36).slice(2);
+  const u=loc||(db.u[n]={av:null,fav:[],his:[]});u.s=sl;u.h=await hash(p,sl);u.cloud=c;
+  if(up){u.fav=[...db.g.fav];u.his=[...db.g.his];db.g={fav:[],his:[]}}
+  try{const d=await cGet(u);if(d)mergeIn(u,d);await cPut(u)}catch(e){toast('Chưa đồng bộ được, sẽ thử lại sau')}
+  db.cur=n;save();return true}
+const readF=(f,cb)=>{const r=new FileReader();r.onload=()=>cb(r.result);r.readAsText(f)};
+function auth(mode){
+  const up=mode==='up';
+  modal(`<h2>${up?'Đăng ký':'Đăng nhập'}</h2><form id="af"><input class="fld" id="un" placeholder="Tên đăng nhập" autocomplete="username" required><input class="fld" id="pw" type="password" placeholder="Mật khẩu (từ ${cloudOn()?6:4} ký tự)" autocomplete="${up?'new':'current'}-password" required><p class="er" id="er"></p><button class="pri">${up?'Tạo tài khoản':'Đăng nhập'}</button></form><p class="sub">${up?'Đã có tài khoản?':'Chưa có tài khoản?'} <a href="#" id="sw">${up?'Đăng nhập':'Đăng ký'}</a></p><label class="btn">Khôi phục từ file sao lưu<input type="file" id="im" accept=".json" hidden></label>${up?'<p class="sub" style="margin-top:10px">Yêu thích và lịch sử đang xem sẽ được chuyển vào tài khoản mới.</p>':''}${cloudOn()?'<p class="sub" style="margin-top:10px">Dữ liệu được sao lưu đám mây, đăng nhập trên máy khác vẫn còn nguyên.</p>':''}`);
+  $('#sw').onclick=e=>{e.preventDefault();auth(up?'in':'up')};
+  $('#im').onchange=e=>e.target.files[0]&&readF(e.target.files[0],restore);
+  $('#af').onsubmit=async e=>{e.preventDefault();const n=$('#un').value.trim().toLowerCase(),p=$('#pw').value,er=$('#er');
+    if(!/^[a-z0-9_.]{3,20}$/.test(n))return er.textContent='Tên 3–20 ký tự: chữ thường, số, dấu _ hoặc .';
+    if(cloudOn()){const ok=await cloudLogin(n,p,up,er);if(!ok)return;closeM();renderAcc();route();toast('Xin chào '+n);return}
+    if(p.length<4)return er.textContent='Mật khẩu cần ít nhất 4 ký tự';
+    if(up){if(db.u[n])return er.textContent='Tên này đã có người dùng';
+      const s=Math.random().toString(36).slice(2);db.u[n]={s,h:await hash(p,s),av:null,fav:[...db.g.fav],his:[...db.g.his]};db.g={fav:[],his:[]}}
+    else{const u=db.u[n];if(!u||u.h!==await hash(p,u.s))return er.textContent='Sai tên đăng nhập hoặc mật khẩu'}
+    db.cur=n;save();closeM();renderAcc();route();toast('Xin chào '+n)}
+}
+function prof(){
+  const n=db.cur,u=db.u[n];
+  modal(`<h2>Tài khoản</h2><div class="pr">${avh(n,u.av,64)}<div><b>${esc(n)}</b><p class="sub">${u.fav.length} yêu thích · ${u.his.length} đã xem</p></div></div><label class="btn">Đổi avatar<input type="file" id="af" accept="image/*" hidden></label> <button class="btn" id="rm">Xóa ảnh</button>${cloudOn()?(u.cloud?`<h2>Sao lưu đám mây</h2><p class="sub">Tự động đồng bộ khi bạn thêm yêu thích hoặc xem phim.${u.sync?' Lần cuối: '+new Date(u.sync).toLocaleString('vi-VN')+'.':''}</p><button class="btn" id="cs">Đồng bộ ngay</button>`:`<h2>Sao lưu đám mây</h2><p class="sub">Nhập mật khẩu để bật sao lưu, dùng được trên nhiều thiết bị.</p><input class="fld" id="cp" type="password" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="current-password"><p class="er" id="ce"></p><button class="btn" id="cb">Bật sao lưu đám mây</button>`):''}<h2>Sao lưu thủ công</h2><p class="sub">Tải file về máy, khi đổi máy hoặc xóa dữ liệu trình duyệt thì khôi phục lại từ file này.</p><button class="btn" id="ex">Tải file sao lưu</button> <label class="btn">Khôi phục<input type="file" id="im" accept=".json" hidden></label><p style="margin-top:18px"><button class="btn" id="lo">Đăng xuất</button></p>`);
+  $('#af').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=96;const s=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,96,96);u.av=c.toDataURL('image/jpeg',.8);save();renderAcc();prof()};im.src=URL.createObjectURL(f)};
+  $('#rm').onclick=()=>{u.av=null;save();renderAcc();prof()};
+  $('#ex').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'cine-play',user:n,data:u})],{type:'application/json'}));a.download='cine-play-'+n+'.json';a.click()};
+  $('#im').onchange=e=>e.target.files[0]&&readF(e.target.files[0],restore);
+  $('#lo').onclick=()=>{db.cur=null;save();closeM();renderAcc();route()};
+  if($('#cs'))$('#cs').onclick=async()=>{const r=await pullSync(u,true);if(r===null)return toast('Không đồng bộ được, kiểm tra mạng');if(r===false)try{await cPut(u)}catch(e){return toast('Không đồng bộ được, kiểm tra mạng')}toast('Đã đồng bộ');route();prof()};
+  if($('#cb'))$('#cb').onclick=async()=>{const p=$('#cp').value,er=$('#ce');
+    if(p.length<6)return er.textContent='Mật khẩu cần ít nhất 6 ký tự';
+    if(u.h!==await hash(p,u.s))return er.textContent='Sai mật khẩu';
+    er.textContent='Đang kết nối…';
+    try{let c;try{c=await cAuth(n,p,true)}catch(e){if(/EMAIL_EXISTS/.test(e.message))c=await cAuth(n,p,false);else throw e}
+      u.cloud=c;const d=await cGet(u);if(d)mergeIn(u,d);await cPut(u);save();toast('Đã bật sao lưu đám mây');route();prof()}
+    catch(e){u.cloud=null;er.textContent=/INVALID|PASSWORD/.test(e.message||'')?'Tên này đã có trên đám mây với mật khẩu khác':'Không kết nối được đám mây'}};
+}
+const ic=d=>`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="${d}"/></svg>`;
+$('#nav').innerHTML=[['home','#/','Trang chủ','M3 11l9-8 9 8v10h-6v-6H9v6H3z'],['le','#/c/phim-le','Phim lẻ','M4 4h16v16H4zM4 9h16M4 15h16M9 4v16M15 4v16'],['bo','#/c/phim-bo','Phim bộ','M3 6h18v12H3zM8 21h8M12 18v3'],['cat','#/cat','Thể loại','M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'],['me','#/me','Cá nhân','M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6']].map(x=>`<a href="${x[1]}" data-s="${x[0]}">${ic(x[3])}<span>${x[2]}</span></a>`).join('');
+$('#sf').onsubmit=e=>{e.preventDefault();const v=$('#q').value.trim();if(v){location.hash='#/s/'+encodeURIComponent(v);$('#sf').classList.remove('open');$('#q').blur()}};
+$('#sb').onclick=()=>{const f=$('#sf');f.classList.toggle('open');if(f.classList.contains('open'))$('#q').focus()};
+document.addEventListener('click',e=>{if(!e.target.closest('#sf'))$('#sf').classList.remove('open')});
+
+/* ---- Nguồn phim: KKPhim, NguonC, VSMov ---- */
+const SRC={
+ kk:{n:'KKPhim',base:'https://phimapi.com',t:'o',nw:['/danh-sach/phim-moi-cap-nhat-v3','/v1/api/danh-sach/phim-moi-cap-nhat']},
+ ng:{n:'NguonC',base:'https://phim.nguonc.com/api',t:'n'},
+ vs:{n:'VSMov',base:'https://vsmov.com/api',t:'o',nw:['/danh-sach/phim-moi-cap-nhat','/v1/api/danh-sach/phim-moi-cap-nhat']}
 };
-cur=ls.get('rd_src','kk'); if(!SRC[cur])cur='kk';
-let user=ls.get('rd_session',null);
-const K=k=>user?k+':'+user:k;
-const store={get:k=>ls.get(K(k),[]),set:(k,v)=>ls.set(K(k),v)};
-const users=()=>ls.get('rd_users',{});
-const merge=(a,b)=>[...a,...b.filter(x=>!a.some(y=>y.slug===x.slug&&y.src===x.src))];
-async function hash(pw,salt){
- const d=salt+':'+pw;
- try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(d));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
- catch(e){let h=5381;for(const c of d)h=((h<<5)+h+c.charCodeAt(0))|0;return 'x'+h}
+let S=localStorage.getItem('cp_src');if(!SRC[S])S='kk';
+const GEN='hanh-dong:Hành động,tinh-cam:Tình cảm,hai-huoc:Hài hước,co-trang:Cổ trang,tam-ly:Tâm lý,hinh-su:Hình sự,chien-tranh:Chiến tranh,the-thao:Thể thao,vo-thuat:Võ thuật,vien-tuong:Viễn tưởng,phieu-luu:Phiêu lưu,khoa-hoc:Khoa học,kinh-di:Kinh dị,am-nhac:Âm nhạc,than-thoai:Thần thoại,tai-lieu:Tài liệu,gia-dinh:Gia đình,chinh-kich:Chính kịch,bi-an:Bí ẩn,hoc-duong:Học đường,kinh-dien:Kinh điển'.split(',').map(x=>x.split(':'));
+const U=(c,p)=>!p?'':/^https?:/.test(p)?p:c+'/'+String(p).replace(/^\//,'');
+const nItem=(s,m,c)=>({s,slug:m.slug,name:m.name,origin_name:m.origin_name||m.original_name,thumb_url:U(c,m.thumb_url),poster_url:U(c,m.poster_url),year:m.year,episode_current:m.episode_current||m.current_episode,quality:m.quality,lang:m.lang||m.language,category:Array.isArray(m.category)?m.category:[],country:Array.isArray(m.country)?m.country:[],total:m.total_episodes,type:m.type});
+async function fetchList(src,k,key,page,extra=''){
+  const o=SRC[src],q='page='+page,e=encodeURIComponent(key||'');
+  if(k==='anime'){
+    const mv=key==='le',none={items:[],pages:1},hh=x=>!x.category.length||x.category.some(c=>c.slug==='hoat-hinh'||/hoạt hình/i.test(c.name||''));
+    const [a,b]=await Promise.all([fetchList(src,'type','hoat-hinh',page).catch(()=>none),o.t==='n'?none:fetchList(src,'type',mv?'phim-le':'phim-bo',page,'category=hoat-hinh').catch(()=>none)]);
+    const seen=new Set(),items=[];
+    for(const m of[...a.items.filter(x=>isMovie(x)===mv),...b.items.filter(hh)])if(!seen.has(m.slug)){seen.add(m.slug);items.push(m)}
+    return{items,raw:a.items.length+b.items.length,pages:Math.max(a.pages,b.pages)}
+  }
+  if(o.t==='n'){
+    const b={new:'/films/phim-moi-cap-nhat',type:'/films/danh-sach/'+key,genre:'/films/the-loai/'+key,search:'/films/search?keyword='+e}[k];
+    const r=await fetch(o.base+b+(b.includes('?')?'&':'?')+q);if(!r.ok)throw 0;const j=await r.json();
+    return{items:(j.items||[]).map(m=>nItem(src,m,'')),pages:j.paginate?.total_page||99}
+  }
+  const add=x=>x+(x.includes('?')?'&':'?')+q+(extra?'&'+extra:'');
+  const ps={new:o.nw.map(add),type:['/v1/api/danh-sach/'+key,'/danh-sach/'+key].map(add),genre:['/v1/api/the-loai/'+key,'/the-loai/'+key].map(add),search:['/v1/api/tim-kiem?keyword='+e,'/tim-kiem?keyword='+e].map(add)}[k];
+  let d={};
+  for(const p of ps){try{const r=await fetch(o.base+p);if(!r.ok)continue;const x=await r.json();d=x.data||x;if((d.items||[]).length)break}catch(_){}}
+  const c=d.APP_DOMAIN_CDN_IMAGE||new URL(o.base).origin,pg=d.params?.pagination||d.pagination||{};
+  return{items:(d.items||[]).map(m=>nItem(src,m,c)),pages:pg.totalPages||(pg.totalItems?Math.ceil(pg.totalItems/(pg.totalItemsPerPage||1)):99)}
 }
-const getAva=()=>user?(users()[user]||{}).avatar:ls.get('rd_avatar',null);
-function setAva(a){
- if(user){const u=users();u[user]=u[user]||{};u[user].avatar=a;ls.set('rd_users',u)}
- else if(a)ls.set('rd_avatar',a);else ls.del('rd_avatar');
+async function fetchDetail(src,slug){
+  const o=SRC[src],sl=encodeURIComponent(slug);
+  if(o.t==='n'){
+    const r=await fetch(o.base+'/film/'+sl);if(!r.ok)throw 0;const m=(await r.json()).movie;if(!m)throw 0;
+    const g=n=>Object.values(m.category||{}).find(x=>x.group?.name===n)?.list||[];
+    return{...nItem(src,m,''),content:m.description,time:m.time,category:g('Thể loại'),country:g('Quốc gia'),year:(g('Năm')[0]||{}).name,actor:(m.casts||'').split(',').map(x=>x.trim()).filter(Boolean),episodes:(m.episodes||[]).map(sv=>({server_name:sv.server_name,server_data:(sv.items||[]).map(e=>({name:e.name,link_embed:e.embed,link_m3u8:e.m3u8}))}))}
+  }
+  const r=await fetch(o.base+'/phim/'+sl);if(!r.ok)throw 0;const j=await r.json(),m=j.movie||j.data?.item;if(!m)throw 0;
+  const c=j.data?.APP_DOMAIN_CDN_IMAGE||new URL(o.base).origin;
+  return{...nItem(src,m,c),content:m.content,time:m.time,category:m.category||[],country:m.country||[],actor:m.actor||[],episodes:j.episodes||m.episodes||[]}
 }
-function resizeImg(file,cb){
- const fr=new FileReader();
- fr.onload=()=>{const im=new Image();im.onload=()=>{
-  const c=document.createElement('canvas');c.width=c.height=160;
-  const m=Math.min(im.width,im.height),x=(im.width-m)/2,y=(im.height-m)/2;
-  c.getContext('2d').drawImage(im,x,y,m,m,0,0,160,160);cb(c.toDataURL('image/jpeg',.85))};
-  im.src=fr.result};
- fr.readAsDataURL(file);
-}
+const isMovie=m=>m.type==='single'?true:m.type==='series'?false:/full|\(1\/1\)/i.test(m.episode_current||'')||+m.total===1;
+const same=(x,m)=>x.slug===m.slug&&(x.s||'kk')===m.s;
+const pick=m=>({s:m.s,slug:m.slug,name:m.name,origin_name:m.origin_name,thumb_url:m.thumb_url,poster_url:m.poster_url,year:m.year,episode_current:m.episode_current});
+const card=(m,x)=>`<a class="card" href="#/p/${m.s||'kk'}/${esc(m.slug)}"><div class="im"><img loading="lazy" src="${esc(img(m.thumb_url||m.poster_url))}" alt="${esc(m.name)}">${m.episode_current?`<span class="tag">${esc(m.episode_current)}</span>`:''}</div><h3>${esc(m.name)}</h3><small>${x||(esc(m.origin_name||'')+(m.year?' · '+m.year:''))}</small></a>`;
+const srcBar=()=>`<div class="chips tabs">${Object.keys(SRC).map(k=>`<a href="#" data-k="${k}"${k===S?' class="on"':''}>${SRC[k].n}</a>`).join('')}</div>`;
+const bindSrc=()=>document.querySelectorAll('[data-k]').forEach(a=>a.onclick=e=>{e.preventDefault();S=a.dataset.k;localStorage.setItem('cp_src',S);route()});
 
-async function api(src,path){
- const r=await fetch(SRC[src].b+path);
- if(!r.ok)throw new Error('HTTP '+r.status);
- return r.json();
+async function list(title,kind,key,pre='',extra='',flt=null){
+  let page=1,tot=0;const s0=S;
+  app.innerHTML=`${pre}<h1>${esc(title)}</h1><div class="grid" id="g"></div><div id="ft"></div>`;bindSrc();
+  const load=async()=>{
+    $('#ft').innerHTML='<p class="msg">Đang tải…</p>';
+    try{
+      let n=0,more=false;
+      for(let t=0;t<4&&n<12;t++){
+        const d=await fetchList(s0,kind,key,page,extra),it=flt?d.items.filter(flt):d.items;
+        n+=it.length;tot+=it.length;$('#g').insertAdjacentHTML('beforeend',it.map(m=>card(m)).join(''));
+        more=(d.raw??d.items.length)>0&&page<d.pages;if(!more)break;page++;
+      }
+      if(!tot){$('#ft').innerHTML=`<p class="msg">${SRC[s0].n} không có kết quả phù hợp. Vào tab Cá nhân để đổi nguồn phim.</p>`;return}
+      $('#ft').innerHTML=more?'<button class="more" id="mb">Xem thêm</button>':'';
+      if($('#mb'))$('#mb').onclick=load;
+    }catch(e){$('#ft').innerHTML=`<p class="msg">Không tải được dữ liệu từ ${SRC[s0].n}. Vào tab Cá nhân để đổi nguồn phim.</p>`}
+  };
+  load();
 }
-function img(u,j){
- if(!u)return '';
- if(/^https?:/.test(u))return u;
- const d=j.data||{}, cdn=d.APP_DOMAIN_CDN_IMAGE||'';
- if(j.pathImage)return j.pathImage+u;
- if(u.includes('/'))return cdn+'/'+u.replace(/^\//,'');
- return cdn+'/uploads/movies/'+u;
+const COL=['#ff4f9a','#c2399a','#8e44ad','#e91e8c','#d6336c','#a855f7','#f06595','#7c3aed','#e64980','#be4bdb','#ff6b9d','#9c36b5'];
+function genres(){
+  app.innerHTML='<h1>Thể loại hoạt hình</h1>'+(SRC[S].t==='n'?'<p class="msg">NguonC không hỗ trợ lọc thể loại, vào Cá nhân để đổi sang KKPhim hoặc VSMov.</p>':'')+'<div class="tiles">'+GEN.map((g,i)=>`<a class="tl" style="background:${COL[i%COL.length]}" href="#/t/${g[0]}">${esc(g[1])}</a>`).join('')+'</div>';bindSrc();
 }
-function items(j,src){
- const d=j.data||j, list=d.items||j.items||[];
- return list.map(it=>({
-  src,slug:it.slug,name:it.name,
-  origin:it.origin_name||it.original_name||'',
-  year:it.year||'',
-  ep:(()=>{const c=it.episode_current||it.current_episode||'',t=it.total_episodes;return c&&t&&/^\d+$/.test(String(t))&&!String(c).includes(String(t))?c+' / '+t:c})(),
-  quality:it.quality||'',lang:it.lang||it.language||'',
-  thumb:img(it.thumb_url||it.poster_url,j),
-  poster:img(it.poster_url,j)
- }));
+let dip;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e});
+function inst(){
+  if(dip){dip.prompt();return}
+  modal('<h2>Cài ra màn hình chính</h2><p class="sub">iPhone/iPad (Safari): bấm nút Chia sẻ, chọn “Thêm vào Màn hình chính”.<br>Android (Chrome): bấm menu ⋮, chọn “Cài đặt ứng dụng” hoặc “Thêm vào màn hình chính”.</p><p class="sub">Cần mở web qua địa chỉ https (đã đưa lên hosting). Mở trực tiếp file trong máy sẽ không cài được.</p>');
 }
-
-function cards(list,cls){
- if(!list.length)return '<p class="msg">Không có phim nào để hiển thị.</p>';
- return '<div class="'+(cls||'grid')+'">'+list.map((m,i)=>`
- <button class="card" data-i="${i}">
-  <div class="im" style="background-image:url('${esc(m.thumb)}')">${m.quality||m.lang?`<span class="bds">${m.quality?`<span class="bd o">${esc(m.quality)}</span>`:''}${m.lang?`<span class="bd w">${esc(m.lang)}</span>`:''}</span>`:''}${m.ep?`<span class="bd o ep">${esc(m.ep)}</span>`:''}</div>
-  <b>${esc(m.name)}</b><small>${esc(m.origin)}${m.year?' • '+esc(m.year):''}</small>
- </button>`).join('')+'</div>';
+function profile(){
+  const n=db.cur,u=n&&db.u[n];
+  const row=(h,t,id)=>`<a class="ls" ${id?`id="${id}" href="#"`:`href="${h}"`}><span>${t}</span><i>›</i></a>`;
+  app.innerHTML=`<h1>Cá nhân</h1><div class="pr" style="margin-bottom:18px">${avh(n||'?',u?u.av:null,72)}<div><b style="font-size:18px">${n?esc(n):'Khách'}</b><p class="sub">${n?'Tài khoản trên máy này':'Đăng nhập để lưu và sao lưu dữ liệu'}</p></div></div><h2>Nguồn phim</h2>${srcBar()}<div class="card2">${n?row('','Đổi avatar &amp; sao lưu','pf'):row('','Đăng nhập để sao lưu','li')+row('','Đăng ký tài khoản','su')}</div><div class="card2">${row('#/his','Lịch sử xem ('+me().his.length+')')+row('#/fav','Yêu thích ('+me().fav.length+')')}</div><div class="card2">${row('','Cài ứng dụng ra màn hình chính','ins')}</div>${n?'<div class="card2">'+row('','Đăng xuất','lo')+'</div>':''}`;
+  const on=(id,f)=>$('#'+id)&&($('#'+id).onclick=e=>{e.preventDefault();f()});
+  bindSrc();on('ins',inst);on('pf',prof);on('li',()=>auth('in'));on('su',()=>auth('up'));on('lo',()=>{db.cur=null;save();renderAcc();profile()});
 }
-function bindCards(list,root){
- (root||view).querySelectorAll('.card').forEach(c=>c.onclick=()=>openMovie(list[c.dataset.i].src,list[c.dataset.i].slug));
+function saved(kind){
+  const L=me()[kind],his=kind==='his';
+  app.innerHTML=`<h1>${his?'Lịch sử xem':'Yêu thích'}${his&&L.length?'<button id="clr">Xóa lịch sử</button>':''}</h1>`+(L.length?`<div class="grid">${L.map(m=>card(m,his?'Đang xem: '+esc(m.ep||''):null)).join('')}</div>`:`<p class="msg">${his?'Chưa có phim nào trong lịch sử.':'Chưa có phim yêu thích. Bấm “Yêu thích” ở trang phim để lưu lại.'}</p>`)+(db.cur?'':'<p class="msg">Đăng nhập để dữ liệu được gắn với tài khoản và sao lưu được.</p>');
+  if($('#clr'))$('#clr').onclick=()=>{me().his=[];save();saved('his')};
 }
-function pager(hasNext){
- return `<div class="pager"><button class="btn" id="prev" ${st.p<=1?'disabled':''}>Trang trước</button><span>Trang ${st.p}</span><button class="btn" id="next" ${hasNext?'':'disabled'}>Trang sau</button></div>`;
+let hls,tm;
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){try{screen.orientation&&screen.orientation.unlock&&screen.orientation.unlock()}catch(_){}}});
+const fmt=t=>{t=Math.max(0,t|0);const h=t/3600|0,m=t%3600/60|0,x=t%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+function play(ep,mode){
+  const box=$('#pl');document.documentElement.classList.remove('fsl');if(hls){hls.destroy();hls=null}
+  if(!ep.link_m3u8&&!ep.link_embed){box.innerHTML='<p class="msg">Tập này chưa có link phát.</p>';return}
+  if(mode==='embed'||!ep.link_m3u8){box.innerHTML=`<iframe src="${esc(ep.link_embed)}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>`;return}
+  const ICP='M7 4l13 8-13 8z',ICA='M8 4v16M16 4v16';
+  box.className='player';
+  box.innerHTML=`<video playsinline autoplay></video><div class="ctl"><input type="range" id="sk" min="0" max="1000" value="0" aria-label="Tua"><div class="cr"><button data-a="b" aria-label="Lùi 10 giây">${ic('M3 12a9 9 0 103-6.7M3 4v5h5')}<small>10</small></button><button data-a="p" id="pb" aria-label="Phát hoặc dừng">${ic(ICP)}</button><button data-a="f" aria-label="Tua 10 giây">${ic('M21 12a9 9 0 11-3-6.7M21 4v5h-5')}<small>10</small></button><span id="tm">0:00 / 0:00</span><i></i><button data-a="pip" aria-label="Hình trong hình">${ic('M3 5h18v14H3zM12 12h7v5h-7z')}</button><button data-a="fs" aria-label="Toàn màn hình">${ic('M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5')}</button></div></div>`;
+  const v=box.querySelector('video'),sk=$('#sk'),dur=()=>isFinite(v.duration)?v.duration:0;
+  v.ontimeupdate=()=>{const d=dur();if(d)sk.value=v.currentTime/d*1000;$('#tm').textContent=fmt(v.currentTime)+' / '+fmt(d)};
+  v.onplay=v.onpause=()=>$('#pb path').setAttribute('d',v.paused?ICP:ICA);
+  v.onclick=()=>v.paused?v.play():v.pause();
+  sk.oninput=()=>{v.currentTime=sk.value/1000*dur()};
+  box.querySelector('.cr').onclick=e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a,d=document;
+    if(a==='b')v.currentTime=Math.max(0,v.currentTime-10);
+    if(a==='f')v.currentTime=Math.min(dur()||1e9,v.currentTime+10);
+    if(a==='p')v.paused?v.play():v.pause();
+    if(a==='pip'){const msg=()=>toast(navigator.standalone?'Ứng dụng màn hình chính chưa cho bật hình trong hình, hãy mở bằng Safari':'Trình duyệt chưa hỗ trợ hình trong hình');
+      try{
+        if(v.webkitSupportsPresentationMode&&v.webkitSupportsPresentationMode('picture-in-picture')){
+          const go=()=>{try{v.webkitSetPresentationMode(v.webkitPresentationMode==='picture-in-picture'?'inline':'picture-in-picture')}catch(_){msg()}};
+          v.paused?v.play().then(go,go):go();
+        }else if(d.pictureInPictureEnabled&&v.requestPictureInPicture){
+          Promise.resolve(d.pictureInPictureElement?d.exitPictureInPicture():v.requestPictureInPicture()).catch(msg);
+        }else msg();
+      }catch(_){msg()}}
+    if(a==='fs'){
+      const real=d.fullscreenElement||d.webkitFullscreenElement;
+      if(real){(d.exitFullscreen||d.webkitExitFullscreen).call(d);return}
+      if(box.classList.contains('fake')){box.classList.remove('fake');document.documentElement.classList.remove('fsl');return}
+      const rq=box.requestFullscreen||box.webkitRequestFullscreen;
+      if(rq){
+        Promise.resolve(rq.call(box)).then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{})}catch(_){}}).catch(()=>{});
+      }else{
+        /* iPhone không cho fullscreen phần tử: dùng toàn màn hình giả và tự xoay ngang */
+        box.classList.add('fake');document.documentElement.classList.add('fsl');sh();
+      }
+    }
+  };
+  let ht;const sh=()=>{box.classList.remove('hide');clearTimeout(ht);ht=setTimeout(()=>{if(!v.paused)box.classList.add('hide')},3000)};
+  box.onmousemove=box.ontouchstart=sh;sh();
+  v.disablePictureInPicture=false;v.setAttribute('x-webkit-airplay','allow');
+  if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=ep.link_m3u8;v.onerror=()=>{if(ep.link_embed)play(ep,'embed')}}
+  else if(window.Hls&&Hls.isSupported()){hls=new Hls();hls.loadSource(ep.link_m3u8);hls.attachMedia(v);hls.on(Hls.Events.ERROR,(_,e)=>{if(e.fatal&&ep.link_embed)play(ep,'embed')})}
+  else v.src=ep.link_m3u8;
 }
-
-const TITLES={le:'Phim lẻ',bo:'Phim bộ'};
-const COUNTRIES=[['viet-nam','Việt Nam'],['trung-quoc','Trung Quốc'],['han-quoc','Hàn Quốc'],['nhat-ban','Nhật Bản'],['thai-lan','Thái Lan'],['hong-kong','Hồng Kông'],['dai-loan','Đài Loan'],['au-my','Âu Mỹ'],['an-do','Ấn Độ'],['anh','Anh'],['phap','Pháp'],['duc','Đức'],['canada','Canada'],['uc','Úc'],['nga','Nga'],['tay-ban-nha','Tây Ban Nha'],['tho-nhi-ky','Thổ Nhĩ Kỳ'],['philippines','Philippines'],['indonesia','Indonesia'],['brazil','Brazil']];
-const ROWS=[['Phim mới nhất','new'],['Phim Việt Nam','c','viet-nam'],['Phim Nhật Bản','c','nhat-ban'],['Phim Hàn Quốc','c','han-quoc'],['Phim Trung Quốc','c','trung-quoc'],['Phim Thái Lan','c','thai-lan'],['Phim Hồng Kông','c','hong-kong'],['Phim Âu Mỹ','c','au-my'],['Phim hoạt hình','h']];
-const rowPath=(S,r,p)=>r[1]==='new'?S.home(p):r[1]==='h'?S.h(p):S.c(r[2],p);
-let heroT;
-
-const cu=u=>"url('"+String(u||'').replace(/'/g,'%27')+"')";
-function noHero(){const h=$('#hero');if(h)h.remove();view.classList.add('nohero')}
-function showHero(list){
- const el=$('#hero');
- if(!el)return;
- if(!list.length)return noHero();
- let i=0;
- const draw=()=>{
-  const m=list[i];
-  el.style.setProperty('--bgl',cu(m.poster||m.thumb));
-  el.style.setProperty('--bgp',cu(m.thumb||m.poster));
-  el.innerHTML=`<div class="hbg"></div><div class="hcont">
-  <div class="hbot"><div class="hinfo"><h1>${esc(m.name)}</h1><small>${esc([m.origin,m.year,m.ep].filter(Boolean).join(' • '))}</small></div>
-  <button class="play" id="hgo" aria-label="Xem ${esc(m.name)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button></div>
-  <div class="dots">${list.map((_,k)=>`<button class="dot ${k===i?'on':''}" data-k="${k}" aria-label="Phim nổi bật ${k+1}"></button>`).join('')}</div></div>`;
-  $('#hgo').onclick=()=>openMovie(m.src,m.slug);
-  el.querySelectorAll('.dot').forEach(d=>d.onclick=()=>{i=+d.dataset.k;draw();restart()});
- };
- const restart=()=>{
-  clearInterval(heroT);
-  if(list.length>1&&!matchMedia('(prefers-reduced-motion:reduce)').matches)heroT=setInterval(()=>{i=(i+1)%list.length;draw()},6500);
- };
- draw();restart();
-}
-
-function renderHome(){
- const S=SRC[cur], my=cur;
- view.innerHTML='<div id="hero" class="hero"></div><div class="hwrap">'+ROWS.map((r,i)=>`<section class="rowsec"><div class="rh"><h2>${r[0]}</h2><button class="btn sm" data-r="${i}">Xem thêm</button></div><div class="rail" id="r${i}"><p class="msg" style="padding:20px 0">Đang tải...</p></div></section>`).join('')+'</div>';
- view.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st={...st,v:'cat',cat:ROWS[b.dataset.r],p:1,from:null};render()});
- ROWS.forEach(async(r,i)=>{
-  const el=$('#r'+i);
+async function detail(src,slug){
+  app.innerHTML='<p class="msg">Đang tải…</p>';
   try{
-   let list=items(await api(my,rowPath(S,r,1)),my);
-   if(!el.isConnected||cur!==my)return;
-   if(i===0){showHero(list.slice(0,5));if(list.length>=14)list=list.slice(5)}
-   const L=list.slice(0,16);
-   el.innerHTML=cards(L,'rail');
-   if(L.length)bindCards(L,el);
-  }catch(e){
-   if(!el.isConnected)return;
-   el.innerHTML=`<p class="msg" style="padding:20px 0">Không tải được mục này (${esc(e.message)}).</p>`;
-   if(i===0)noHero()
-  }
- });
+    const m=await fetchDetail(src,slug);
+    const sv=(m.episodes||[]).filter(x=>x.server_data?.length),nm=a=>(a||[]).filter(Boolean).map(x=>`<span>${esc(x.name||x)}</span>`).join('');
+    const season=((m.name+' '+(m.origin_name||'')).match(/(?:phần|season|mùa|part)\s*(\d+)/i)||[])[1]||'1';
+    const epn=n=>/^\d+$/.test(n)?'Tập '+n:n;
+    document.title=m.name+' – Flix Anime';
+    app.innerHTML=`<div class="bd" style="background-image:url(${esc(img(m.poster_url||m.thumb_url))})"></div><div id="pp"></div><div class="det"><img src="${esc(img(m.thumb_url||m.poster_url))}" alt="${esc(m.name)}"><div><h1>${esc(m.name)}</h1><p class="sub">${esc(m.origin_name||'')} ${m.year?'· '+esc(m.year):''} ${m.quality?'· '+esc(m.quality):''} ${m.lang?'· '+esc(m.lang):''}</p><div class="chips"><span>${SRC[src].n}</span><span>Phần ${season}</span>${m.episode_current?`<span>${esc(m.episode_current)}</span>`:''}${sv[0]?`<span>${sv[0].server_data.length} tập</span>`:''}${nm(m.category)}${nm(m.country)}${m.time?`<span>${esc(m.time)}</span>`:''}</div><p class="desc">${esc((m.content||'').replace(/<[^>]*>/g,''))}</p><button class="btn" id="fv"></button>${m.actor?.filter(Boolean).length?`<h2>Diễn viên</h2><div class="chips">${nm(m.actor)}</div>`:''}</div></div><div id="ps"></div>`;
+    const fv=()=>{const on=me().fav.some(x=>same(x,m));$('#fv').className='btn'+(on?' on':'');$('#fv').textContent=on?'♥ Đã yêu thích':'♡ Yêu thích'};
+    $('#fv').onclick=()=>{const d=me();d.fav=d.fav.some(x=>same(x,m))?d.fav.filter(x=>!same(x,m)):[pick(m),...d.fav];save();fv()};fv();
+    if(!sv.length){$('#pp').innerHTML='<p class="msg">Phim chưa có tập nào để xem. Vào tab Cá nhân để đổi nguồn khác.</p>';return}
+    $('#pp').innerHTML=`<div class="player" id="pl"></div><div class="bar"><b id="now"></b><button id="em">Đổi sang trình phát dự phòng</button></div>`;
+    $('#ps').innerHTML=sv.map((x,i)=>`<h2>${esc(x.server_name)}</h2><div class="eps">${x.server_data.map((e,j)=>`<button data-i="${i}" data-j="${j}">${esc(e.name)}</button>`).join('')}</div>`).join('');
+    let cur,emb=false;
+    const go=(i,j)=>{cur=sv[i].server_data[j];emb=false;$('#em').textContent='Đổi sang trình phát dự phòng';
+      document.querySelectorAll('.eps button').forEach(b=>b.classList.toggle('on',b.dataset.i==i&&b.dataset.j==j));
+      $('#now').textContent='Phần '+season+' · '+epn(cur.name);play(cur);
+      const d=me();d.his=[{...pick(m),i:+i,j:+j,ep:cur.name,ts:Date.now()},...d.his.filter(x=>!same(x,m))].slice(0,60);save()};
+    document.querySelectorAll('.eps button').forEach(b=>b.onclick=()=>go(b.dataset.i,b.dataset.j));
+    $('#em').onclick=()=>{emb=!emb;play(cur,emb?'embed':'hls');$('#em').textContent=emb?'Đổi sang trình phát chính':'Đổi sang trình phát dự phòng'};
+    const h=me().his.find(x=>same(x,m));
+    h&&sv[h.i]?.server_data[h.j]?go(h.i,h.j):go(0,0);
+  }catch(e){app.innerHTML=`<p class="msg">Không tải được phim này từ ${SRC[src]?.n||'nguồn'}. <a href="#/" style="color:var(--ac)">Về trang chủ</a></p>`}
 }
-
-async function render(){
- clearInterval(heroT);
- document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===(st.v==='cat'?(st.from||'home'):st.v)));
- window.scrollTo(0,0);
- const S=SRC[cur];
- view.className=st.v==='home'?'home':'';updateTopAva();
- if(st.v==='home')return renderHome();
- if(st.v==='me')return renderMe();
- if(st.v==='genre'&&!st.g){
-  view.innerHTML='<h2>Thể loại</h2><div class="chips">'+GENRES.map(g=>`<button class="chip" data-s="${g[0]}">${g[1]}</button>`).join('')+'</div><h2 style="margin-top:32px">Quốc gia</h2><div class="chips">'+COUNTRIES.map(c=>`<button class="chip" data-c="${c[0]}">${c[1]}</button>`).join('')+'</div>';
-  view.querySelectorAll('[data-s]').forEach(c=>c.onclick=()=>{st.g=c.dataset.s;st.p=1;render()});
-  view.querySelectorAll('[data-c]').forEach(c=>c.onclick=()=>{st={...st,v:'cat',cat:['Phim '+c.textContent,'c',c.dataset.c],p:1,from:'genre'};render()});
-  return;
- }
- let path,title,back=null;
- if(st.v==='search'){path=S.q(encodeURIComponent(st.q),st.p);title='Kết quả: '+st.q}
- else if(st.v==='cat'){path=rowPath(S,st.cat,st.p);title=st.cat[0];back=st.from==='genre'?['genre','← Thể loại']:['home','← Trang chủ']}
- else if(st.v==='genre'){path=S.g(st.g,st.p);title=(GENRES.find(g=>g[0]===st.g)||[,st.g])[1];back=['genre','← Tất cả thể loại']}
- else{path=S[st.v](st.p);title=TITLES[st.v]}
- const head=`<h2>${esc(title)}</h2>`+(back?`<p style="margin-bottom:14px"><button class="btn" id="bk">${back[1]}</button></p>`:'');
- const bind=()=>{const b=$('#bk');if(b)b.onclick=()=>{st.g=null;st.from=null;st.v=back[0];st.p=1;render()}};
- view.innerHTML=head+'<p class="msg">Đang tải...</p>';bind();
- try{
-  const list=items(await api(cur,path),cur);
-  view.innerHTML=head+cards(list)+pager(list.length>=10&&!(cur==='nc'&&st.v==='search'));
-  bind();bindCards(list);
-  $('#prev').onclick=()=>{st.p--;render()};
-  $('#next').onclick=()=>{st.p++;render()};
- }catch(e){
-  view.innerHTML=head+`<p class="msg">Không tải được dữ liệu từ ${S.n} (${esc(e.message)}). Hãy thử nguồn khác hoặc kiểm tra kết nối.</p>`;bind();
- }
+async function home(){
+  const s0=S,ex=SRC[s0].t!=='n';
+  app.innerHTML='<p class="msg">Đang tải…</p>';
+  const JP=m=>!m.country.length||m.country.some(c=>c.slug==='nhat-ban'),CN=m=>!m.country.length||m.country.some(c=>c.slug==='trung-quoc'),Y=m=>!m.year||+m.year===2026;
+  const R=[['Phim hoạt hình mới nhất','',null,1],['Phim Anime mùa thu 2026','country=nhat-ban&year=2026',m=>JP(m)&&Y(m),0],['Phim anime Nhật Bản','country=nhat-ban',JP,0],['Phim hoạt hình Trung Quốc','country=trung-quoc',CN,0]];
+  const res=await Promise.all(R.map(r=>(r[3]||ex?fetchList(s0,'type','hoat-hinh',1,r[1]):Promise.resolve({items:[]})).then(d=>({items:r[2]?d.items.filter(r[2]):d.items})).catch(()=>({items:[]}))));
+  if(s0!==S)return;
+  if(!res[0].items.length){app.innerHTML=`<p class="msg">Không tải được dữ liệu từ ${SRC[s0].n}. Vào tab Cá nhân để đổi nguồn phim, hoặc kiểm tra mạng.</p>`;return}
+  const hero=res[0].items.filter(m=>m.poster_url).slice(0,6);
+  const h=hero.length?`<div class="hero"><div id="hb"></div><div id="hc"></div><div class="dots">${hero.map((m,i)=>`<button aria-label="${esc(m.name)}" data-i="${i}"></button>`).join('')}</div></div>`:'';
+  const hs=me().his.slice(0,10);
+  const cont=hs.length?`<section class="row"><h2>Xem tiếp<a href="#/his">›</a></h2><div class="rw">${hs.map(m=>`<a class="cw" href="#/p/${m.s||'kk'}/${esc(m.slug)}"><div class="im"><img loading="lazy" src="${esc(img(m.poster_url||m.thumb_url))}" alt=""><span class="tag">${esc(m.ep||'')}</span></div><h3>${esc(m.name)}</h3></a>`).join('')}</div></section>`:'';
+  const top=res[0].items.slice(0,10);
+  const t10=`<section class="row"><h2>Top 10 Phim hoạt hình</h2><div class="rw">${top.map((m,i)=>`<a class="tp" href="#/p/${m.s}/${esc(m.slug)}"><span class="n">${i+1}</span><img loading="lazy" src="${esc(img(m.thumb_url||m.poster_url))}" alt="${esc(m.name)}"></a>`).join('')}</div></section>`;
+  const rows=R.map((r,i)=>res[i].items.length?`<section class="row"><h2>${r[0]}<a href="#/c/phim-bo">›</a></h2><div class="rw">${res[i].items.map(m=>card(m)).join('')}</div></section>`:'');
+  rows.splice(1,0,t10);
+  app.innerHTML=h+cont+rows.join('')+(ex?'':'<p class="msg">NguonC chưa hỗ trợ lọc theo quốc gia. Đổi sang KKPhim hoặc VSMov để xem mục Anime mùa thu 2026, anime Nhật Bản và hoạt hình Trung Quốc.</p>');bindSrc();
+  if(!hero.length)return;
+  let hi=0;
+  const show=i=>{hi=i;const m=hero[i];$('#hb').style.backgroundImage=`url(${img(m.poster_url)})`;
+    $('#hc').innerHTML=`<h2>${esc(m.name)}</h2><p class="sub">${esc(m.origin_name||'')}</p><div class="chips">${[m.quality,m.lang,m.year,m.episode_current,...m.category.slice(0,3).map(c=>c.name)].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('')}</div><a class="btn pri" href="#/p/${m.s}/${esc(m.slug)}">▶ Xem ngay</a>`;
+    document.querySelectorAll('.dots button').forEach((b,k)=>b.classList.toggle('on',k===i))};
+  document.querySelectorAll('.dots button').forEach(b=>b.onclick=()=>{show(+b.dataset.i);clearInterval(tm)});
+  show(0);tm=setInterval(()=>show((hi+1)%hero.length),6000);
 }
-
-function renderMe(note){
- updateTopAva();
- const fav=store.get('fav'), his=store.get('his'), list=st.tab==='fav'?fav:his, ava=getAva();
- const reg=st.auth==='reg';
- view.innerHTML=`<h2>Cá nhân</h2>
- <section class="panel prof">
-  <button class="ava" id="ava" aria-label="Đổi ảnh đại diện">${ava?`<img src="${esc(ava)}" alt="">`:esc((user||'Khách')[0].toUpperCase())}</button>
-  <div class="pinfo"><b>${esc(user||'Khách')}</b><br><small>${user?'Dữ liệu đang lưu theo tài khoản này.':'Đăng nhập để lưu riêng và sao lưu dữ liệu.'}</small>
-   <div class="row"><button class="btn" id="chava">Đổi ảnh đại diện</button>${ava?'<button class="btn" id="rmava">Xóa ảnh</button>':''}${user?'<button class="btn" id="out">Đăng xuất</button>':''}</div></div>
-  <input type="file" id="file" accept="image/*" hidden>
- </section>
- ${note?`<p class="ok">${esc(note)}</p>`:''}
- ${user?'':`<section class="panel"><div class="tabs"><button class="chip ${reg?'':'on'}" data-a="login">Đăng nhập</button><button class="chip ${reg?'on':''}" data-a="reg">Đăng ký</button></div>
-  <form class="authf" id="af"><input class="f" id="un" placeholder="Tên đăng nhập" autocomplete="username" required>
-  <input class="f" id="pw" type="password" placeholder="Mật khẩu (từ 6 ký tự)" autocomplete="${reg?'new-password':'current-password'}" required>
-  ${reg?'<input class="f" id="pw2" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password" required>':''}
-  <div class="err" id="err"></div><button class="btn pri" type="submit">${reg?'Tạo tài khoản':'Đăng nhập'}</button></form>
-  <p class="hint">Tài khoản được lưu ngay trên trình duyệt này. Phim yêu thích và lịch sử hiện tại sẽ được chuyển vào tài khoản khi đăng ký.</p></section>`}
- <section class="panel"><h3>Ứng dụng</h3>${standalone()?'<p class="hint" style="margin:0">Bạn đang dùng FlixFlim như một ứng dụng.</p>':`<p class="hint" style="margin:0 0 4px">Thêm FlixFlim vào màn hình chính để mở nhanh như một ứng dụng.</p><div class="row"><button class="btn pri" id="inst2">Thêm vào màn hình chính</button></div>`}</section>
- <section class="panel"><h3>Nguồn phim</h3><div class="chips">${Object.keys(SRC).map(k=>`<button class="chip ${k===cur?'on':''}" data-src="${k}">${SRC[k].n}</button>`).join('')}</div></section>
- <section class="panel"><h3>Sao lưu</h3><p class="hint" style="margin:0 0 4px">Tải file sao lưu để chuyển dữ liệu sang thiết bị hoặc trình duyệt khác.</p>
-  <div class="row"><button class="btn" id="exp">Tải bản sao lưu</button><button class="btn" id="imp">Khôi phục từ file</button></div>
-  <input type="file" id="impf" accept="application/json,.json" hidden></section>
- <div class="tabs"><button class="chip ${st.tab==='fav'?'on':''}" data-t="fav">Yêu thích (${fav.length})</button><button class="chip ${st.tab==='his'?'on':''}" data-t="his">Lịch sử xem (${his.length})</button>
- ${list.length?'<button class="btn" id="clr" style="margin-left:auto">Xóa danh sách</button>':''}</div>`+
- (list.length?cards(list):`<p class="msg">${st.tab==='fav'?'Chưa có phim yêu thích. Mở một phim và bấm “Thêm vào yêu thích”.':'Chưa có lịch sử xem. Phim bạn xem sẽ hiện ở đây.'}</p>`);
-
- const pick=()=>$('#file').click();
- $('#ava').onclick=pick; $('#chava').onclick=pick;
- $('#file').onchange=e=>{const f=e.target.files[0];if(f)resizeImg(f,a=>{setAva(a);renderMe('Đã cập nhật ảnh đại diện.')})};
- const rv=$('#rmava'); if(rv)rv.onclick=()=>{setAva(null);renderMe()};
- const out=$('#out'); if(out)out.onclick=()=>{user=null;ls.del('rd_session');renderMe('Đã đăng xuất.')};
- view.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{st.auth=b.dataset.a;renderMe()});
- const af=$('#af');
- if(af)af.onsubmit=async e=>{
-  e.preventDefault();
-  const un=$('#un').value.trim(), pw=$('#pw').value, err=m=>$('#err').textContent=m, U=users();
-  if(reg){
-   if(!/^[A-Za-z0-9_]{3,20}$/.test(un))return err('Tên đăng nhập gồm 3–20 ký tự: chữ, số hoặc dấu gạch dưới.');
-   if(pw.length<6)return err('Mật khẩu cần ít nhất 6 ký tự.');
-   if(pw!==$('#pw2').value)return err('Hai mật khẩu chưa khớp.');
-   if(U[un.toLowerCase()])return err('Tên đăng nhập đã tồn tại.');
-   const salt=Math.random().toString(36).slice(2), gAva=ls.get('rd_avatar',null);
-   U[un.toLowerCase()]={name:un,salt,hash:await hash(pw,salt),avatar:gAva};
-   ls.set('rd_users',U);
-   const gf=store.get('fav'), gh=store.get('his');
-   user=un.toLowerCase(); ls.set('rd_session',user);
-   store.set('fav',merge(store.get('fav'),gf)); store.set('his',merge(store.get('his'),gh));
-   renderMe('Tạo tài khoản thành công.');
-  }else{
-   const u=U[un.toLowerCase()];
-   if(!u||u.hash!==await hash(pw,u.salt))return err('Sai tên đăng nhập hoặc mật khẩu.');
-   user=un.toLowerCase(); ls.set('rd_session',user); renderMe('Đăng nhập thành công.');
-  }
- };
- view.querySelectorAll('[data-src]').forEach(b=>b.onclick=()=>{cur=b.dataset.src;ls.set('rd_src',cur);renderMe('Đã chuyển nguồn phim sang '+SRC[cur].n+'.')});
- const i2=$('#inst2'); if(i2)i2.onclick=installApp;
- $('#exp').onclick=()=>{
-  const data={app:'rap-dem',user,avatar:getAva()||null,fav:store.get('fav'),his:store.get('his'),at:new Date().toISOString()};
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:'application/json'}));
-  a.download='rapdem-backup-'+(user||'khach')+'.json';a.click();URL.revokeObjectURL(a.href);
- };
- $('#imp').onclick=()=>$('#impf').click();
- $('#impf').onchange=e=>{
-  const f=e.target.files[0]; if(!f)return;
-  f.text().then(t=>{
-   const d=JSON.parse(t);
-   if(d.app!=='rap-dem'||!Array.isArray(d.fav)||!Array.isArray(d.his))throw 0;
-   store.set('fav',merge(store.get('fav'),d.fav)); store.set('his',merge(store.get('his'),d.his));
-   if(d.avatar&&!getAva())setAva(d.avatar);
-   renderMe('Đã khôi phục dữ liệu từ file sao lưu.');
-  }).catch(()=>renderMe('File sao lưu không hợp lệ.'));
- };
- view.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{st.tab=b.dataset.t;renderMe()});
- const c=$('#clr'); if(c)c.onclick=()=>{store.set(st.tab,[]);renderMe()};
- bindCards(list);
+const CT=[['phim-moi','Mới cập nhật'],['phim-bo','Phim bộ'],['phim-le','Phim lẻ'],['hoat-hinh','Hoạt hình'],['tv-shows','TV Shows']];
+function route(){
+  clearInterval(tm);if(hls){hls.destroy();hls=null}
+  document.title='Flix Anime';
+  const [,t,a,b]=(location.hash||'#/').split('/'),arg=a?decodeURIComponent(a):'';
+  const K=!t?'home':t==='c'?(arg==='phim-le'?'le':'bo'):(t==='g'||t==='t'||t==='cat')?'cat':(t==='fav'||t==='me'||t==='his')?'me':'';
+  document.querySelectorAll('nav a').forEach(x=>x.classList.toggle('on',x.dataset.s===K));
+  window.scrollTo(0,0);
+  if(t==='p')return detail(SRC[a]?a:'kk',decodeURIComponent(b||''));
+  if(t==='s')return list('Kết quả cho “'+arg+'”','search',arg,'','',m=>!m.category.length||m.category.some(c=>/hoat-hinh/.test(c.slug||'')||/hoạt hình/i.test(c.name||'')));
+  if(t==='g'||t==='cat')return genres();
+  if(t==='t'){const g=GEN.find(x=>x[0]===arg);return list('Hoạt hình · '+(g?g[1]:arg),'type','hoat-hinh','','category='+encodeURIComponent(arg),m=>!m.category.length||m.category.some(c=>c.slug===arg))}
+  if(t==='me')return profile();
+  if(t==='fav'||t==='his')return saved(t);
+  if(!t)return home();
+  const mv=arg==='phim-le';
+  list(mv?'Phim lẻ hoạt hình':'Phim bộ hoạt hình','anime',mv?'le':'bo');
 }
-
-function parseDetail(j,src){
- const m=j.movie||j.data?.item||{};
- let servers;
- if(src==='nc')servers=(m.episodes||[]).map(s=>({name:s.server_name,eps:(s.items||[]).map(e=>({name:e.name,embed:e.embed,m3u8:e.m3u8}))}));
- else servers=(j.episodes||m.episodes||[]).map(s=>({name:s.server_name,eps:(s.server_data||[]).map(e=>({name:e.name,embed:e.link_embed,m3u8:e.link_m3u8}))}));
- let cats=[],country=[],year=m.year||'';
- const C=m.category;
- if(Array.isArray(C))cats=C.map(c=>c.name);
- else if(C&&typeof C==='object')Object.values(C).forEach(g=>{
-  const gn=(g.group&&g.group.name)||'',l=(g.list||[]).map(x=>x.name);
-  if(/thể loại/i.test(gn))cats=l;else if(/quốc gia/i.test(gn))country=l;else if(/năm/i.test(gn))year=year||l[0];
- });
- if(Array.isArray(m.country))country=m.country.map(c=>c.name);
- const arr=v=>Array.isArray(v)?v.filter(Boolean):typeof v==='string'?v.split(',').map(x=>x.trim()).filter(Boolean):[];
- const season=(m.tmdb&&m.tmdb.season)||((m.name||'').match(/(?:phần|season|mùa)\s*(\d+)/i)||[])[1]||'';
- return{
-  name:m.name,origin:m.origin_name||m.original_name||'',year,
-  content:(m.content||m.description||'').replace(/<[^>]*>/g,'').trim(),
-  thumb:img(m.thumb_url||m.poster_url,j),cats,country,servers,season,
-  ep:m.episode_current||m.current_episode||'',total:m.episode_total||m.total_episodes||'',
-  quality:m.quality||'',lang:m.lang||m.language||'',time:m.time||'',
-  actors:arr(m.actor||m.casts),directors:arr(m.director)
- };
-}
-
-const IC={
- play:'<path d="M8 5.5v13l11-6.5z"/>',
- pause:'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>',
- b10:'<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">10</text>',
- f10:'<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">10</text>',
- next:'<path d="M6 5v14l10-7z"/><path d="M19 5v14" stroke="currentColor" stroke-width="2.4"/>',
- vol:'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>',
- mute:'<path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/>',
- pip:'<rect x="2" y="4" width="20" height="16" rx="2"/><rect x="12" y="12" width="8" height="6" rx="1" fill="currentColor"/>',
- fs:'<path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>',
- xfs:'<path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/>'
-};
-const FILL=['play','pause','next'];
-const ic=n=>`<svg class="ic${FILL.includes(n)?' fl':''}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
-const heart=f=>`<svg class="heart${f?' f':''}" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;
-const fmt=t=>{if(!isFinite(t)||t<0)t=0;t=Math.floor(t);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
-const lab=n=>/^\d+$/.test(String(n).trim())?'Tập '+n:String(n);
-
-async function openMovie(src,slug){
- clearInterval(heroT);view.className='';
- window.scrollTo(0,0);
- view.innerHTML='<p class="msg">Đang tải phim...</p>';
- try{
-  mountMovie(src,slug,parseDetail(await api(src,SRC[src].d(slug)),src));
- }catch(e){
-  view.innerHTML=`<p style="margin-bottom:14px"><button class="btn" id="back">← Quay lại</button></p><p class="msg">Không tải được phim (${esc(e.message)}).</p>`;
-  $('#back').onclick=()=>render();
- }
-}
-
-function mountMovie(src,slug,d){
- const item={src,slug,name:d.name,origin:d.origin,year:d.year,ep:d.ep,thumb:d.thumb,quality:d.quality,lang:d.lang};
- const hasEp=d.servers.some(s=>s.eps.length);
- const tot=/^\d+$/.test(String(d.total))?d.total+' tập':d.total;
- const tags=[d.season&&['Phần '+d.season,1],d.ep&&[d.ep],tot&&['Tổng: '+tot],d.quality&&[d.quality],d.lang&&[d.lang],d.time&&[d.time],d.year&&[String(d.year)]].filter(Boolean);
- const dl=[['Thể loại',d.cats],['Quốc gia',d.country],['Đạo diễn',d.directors],['Diễn viên',d.actors.slice(0,12)]].filter(r=>r[1].length);
- view.innerHTML=`<p style="margin-bottom:14px"><button class="btn" id="back">← Quay lại</button></p>
- ${hasEp?`<div class="pwrap paused" id="pw" tabindex="0">
-  <video id="vid" playsinline></video><iframe id="ifr" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="Trình phát"></iframe>
-  <div class="pov" id="pov"><div class="surf" id="surf"></div>
-   <div class="ptop" id="ptitle"></div>
-   <button class="bigplay" id="bp" aria-label="Phát">${ic('play')}</button>
-   <div class="pctl"><div class="seek" id="seek"><div class="buf" id="sbuf"></div><div class="prog" id="sprog"></div><div class="knob" id="sknob"></div></div>
-    <div class="prow">
-     <button id="b-play" aria-label="Phát / Tạm dừng"></button>
-     <button id="b-back" aria-label="Tua lại 10 giây">${ic('b10')}</button>
-     <button id="b-fwd" aria-label="Tua tới 10 giây">${ic('f10')}</button>
-     <button id="b-next" aria-label="Tập tiếp theo">${ic('next')}</button>
-     <span class="time" id="tm">0:00 / 0:00</span><span class="sp"></span>
-     <button id="b-mute" aria-label="Bật / tắt tiếng"></button>
-     <button id="b-pip" aria-label="Hình trong hình">${ic('pip')}</button>
-     <button id="b-fs" aria-label="Toàn màn hình"></button>
-    </div></div></div>
-  <div class="spin"></div><div class="ptoast" id="pt"></div>
-  <div class="nextbox" id="nb" hidden><b id="nbt"></b><div style="display:flex;gap:8px"><button class="btn pri" id="nbgo">Phát ngay</button><button class="btn" id="nbx">Hủy</button></div></div>
- </div>`:'<p class="msg">Phim chưa có tập nào.</p>'}
- <div class="ttl"><div><h1>${esc(d.name)}</h1><small id="nowp">${esc(d.origin)}</small></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">${hasEp?'<button class="btn" id="mode"></button>':''}<button class="btn" id="fav"></button></div></div>
- <div class="tgs">${tags.map(t=>`<span class="tg${t[1]?' hl':''}">${esc(t[0])}</span>`).join('')}</div>
- ${hasEp?'<section class="panel" id="epp"></section>':''}
- <section class="panel syn">${d.thumb?`<img src="${esc(d.thumb)}" alt="">`:''}<div class="sb"><h3>Nội dung phim</h3>
-  <p class="txt clamp" id="syn">${esc(d.content||'Chưa có nội dung cho phim này.')}</p>
-  ${d.content.length>260?'<button class="btn sm" id="more">Xem thêm</button>':''}
-  ${dl.length?`<dl class="dl">${dl.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1].join(', '))}</dd>`).join('')}</dl>`:''}</div></section>`;
- $('#back').onclick=()=>render();
- const fb=$('#fav'),isFav=()=>store.get('fav').some(f=>f.slug===slug&&f.src===src);
- const setF=()=>fb.innerHTML=heart(isFav())+(isFav()?'Bỏ yêu thích':'Thêm vào yêu thích');
- setF();
- fb.onclick=()=>{let f=store.get('fav');f=isFav()?f.filter(x=>!(x.slug===slug&&x.src===src)):[item,...f];store.set('fav',f);setF()};
- const more=$('#more'); if(more)more.onclick=()=>{const c=$('#syn').classList.toggle('clamp');more.textContent=c?'Xem thêm':'Thu gọn'};
- if(!hasEp)return;
-
- const pw=$('#pw'),v=$('#vid'),ifr=$('#ifr'),epp=$('#epp'),nb=$('#nb');
- const posKey='pos:'+src+':'+slug;
- let si=0,ei=0,hls=null,mode='auto',partsHtml='',tT,nI,tI,lastSave=0;
- const saved=ls.get(posKey,null);
- let t0=0;
- if(saved&&d.servers[saved.si]&&d.servers[saved.si].eps[saved.ei]){si=saved.si;ei=saved.ei;t0=saved.t||0}
- else si=Math.max(0,d.servers.findIndex(s=>s.eps.length));
- const eps=()=>d.servers[si].eps;
- const toast=(m,ms=1400)=>{const el=$('#pt');el.textContent=m;el.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>el.classList.remove('show'),ms)};
- const poke=()=>{pw.classList.remove('idle');clearTimeout(tI);if(!v.paused&&!pw.classList.contains('emb'))tI=setTimeout(()=>pw.classList.add('idle'),3000)};
- const syncPlay=()=>{const p=v.paused;pw.classList.toggle('paused',p);$('#b-play').innerHTML=ic(p?'play':'pause');$('#bp').innerHTML=ic('play');poke()};
- const syncMute=()=>{$('#b-mute').innerHTML=ic(v.muted||v.volume===0?'mute':'vol')};
- const toggle=()=>{v.paused?tryPlay():v.pause()};
- const tryPlay=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{v.muted=true;syncMute();v.play().catch(()=>{});toast('Đang tắt tiếng. Bấm biểu tượng loa để bật.',2600)})};
- const seekBy=s=>{if(!v.duration)return;v.currentTime=Math.max(0,Math.min(v.duration,v.currentTime+s));toast((s>0?'+':'−')+Math.abs(s)+' giây',700);poke()};
- const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
- const toggleFs=()=>{
-  if(fsEl())(document.exitFullscreen||document.webkitExitFullscreen).call(document);
-  else if(pw.requestFullscreen)pw.requestFullscreen();
-  else if(pw.webkitRequestFullscreen)pw.webkitRequestFullscreen();
-  else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen();
- };
- const pipOK=document.pictureInPictureEnabled||!!v.webkitSetPresentationMode;
- $('#b-pip').hidden=!pipOK;
- const togglePip=()=>{
-  if(document.pictureInPictureElement)document.exitPictureInPicture();
-  else if(v.requestPictureInPicture)v.requestPictureInPicture().catch(()=>toast('Không bật được hình trong hình'));
-  else if(v.webkitSetPresentationMode)v.webkitSetPresentationMode(v.webkitPresentationMode==='picture-in-picture'?'inline':'picture-in-picture');
- };
- const cancelNext=()=>{clearInterval(nI);nb.hidden=true};
- const nextEp=()=>{if(ei<eps().length-1){ei++;load(0)}};
- const showNext=()=>{
-  let n=5;const nm=lab(eps()[ei+1].name);
-  nb.hidden=false;$('#nbt').textContent='Tiếp theo: '+nm+' ('+n+'s)';
-  nI=setInterval(()=>{n--;if(n<=0){nextEp()}else $('#nbt').textContent='Tiếp theo: '+nm+' ('+n+'s)'},1000);
- };
- const upd=()=>{
-  const dur=v.duration||0,cur=v.currentTime||0,p=dur?cur/dur*100:0;
-  $('#sprog').style.width=p+'%';$('#sknob').style.left=p+'%';
-  $('#tm').textContent=fmt(cur)+' / '+fmt(dur);
-  if(dur&&v.buffered.length)$('#sbuf').style.width=Math.min(100,v.buffered.end(v.buffered.length-1)/dur*100)+'%';
- };
-
- function load(start,force){
-  const e=eps()[ei]; if(!e)return;
-  if(hls){hls.destroy();hls=null}
-  cancelNext();
-  const emb=force||mode==='embed'||!e.m3u8;
-  pw.classList.toggle('emb',emb);pw.classList.remove('buf');
-  if(emb){
-   v.pause();v.removeAttribute('src');v.load();
-   ifr.src=e.embed||e.m3u8||'about:blank';
-   if(!e.m3u8&&mode!=='embed')toast('Tập này chỉ có bản Embed.',2400);
-  }else{
-   ifr.src='about:blank';
-   if(window.Hls&&Hls.isSupported()){
-    hls=new Hls({startPosition:start>0?start:-1,maxBufferLength:40});
-    hls.loadSource(e.m3u8);hls.attachMedia(v);
-    hls.on(Hls.Events.ERROR,(_,x)=>{if(x.fatal){toast('Không phát được M3U8, chuyển sang Embed.',2600);load(0,true)}});
-   }else{
-    v.src=e.m3u8;
-    if(start>0)v.addEventListener('loadedmetadata',()=>{v.currentTime=start},{once:true});
-   }
-   tryPlay();
-   if(start>5)toast('Tiếp tục từ '+fmt(start),2400);
-  }
-  $('#ptitle').textContent=d.name+' — '+lab(e.name);
-  $('#nowp').textContent=(d.servers.length>1?d.servers[si].name+' • ':'')+'Đang phát: '+lab(e.name);
-  $('#b-next').disabled=ei>=eps().length-1;
-  $('#mode').textContent='Trình phát: '+(mode==='embed'?'Embed':'Tùy chỉnh');
-  epp.querySelectorAll('.epb').forEach((b,i)=>b.classList.toggle('on',i===ei));
-  const a=epp.querySelector('.epb.on'),g=epp.querySelector('.epg');
-  if(a&&g)g.scrollTop=a.offsetTop-g.clientHeight/2+a.clientHeight/2;
-  ls.set(posKey,{si,ei,t:start||0});
-  store.set('his',[{...item,ep:lab(e.name)},...store.get('his').filter(x=>!(x.slug===slug&&x.src===src))].slice(0,60));
-  upd();syncPlay();
- }
-
- function drawEps(){
-  epp.innerHTML=`<div class="eh"><h3>Danh sách tập</h3><span class="cnt">${eps().length} tập${d.servers.length>1?' • '+d.servers.length+' máy chủ':''}</span></div>
-  ${d.servers.length>1?`<div class="tabs sv">${d.servers.map((s,i)=>`<button class="chip ${i===si?'on':''}" data-s="${i}">${esc(s.name)}</button>`).join('')}</div>`:''}
-  <div class="epg">${eps().map((e,i)=>`<button class="epb ${i===ei?'on':''}" data-e="${i}">${esc(lab(e.name))}</button>`).join('')}</div>${partsHtml}`;
-  epp.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{const t=v.currentTime||0;si=+b.dataset.s;ei=Math.min(ei,eps().length-1);drawEps();load(t)});
-  epp.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{ei=+b.dataset.e;window.scrollTo({top:0,behavior:'smooth'});load(0)});
-  epp.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>openMovie(src,b.dataset.p));
- }
-
- // controls
- $('#b-play').onclick=toggle;$('#bp').onclick=toggle;
- $('#b-back').onclick=()=>seekBy(-10);$('#b-fwd').onclick=()=>seekBy(10);
- $('#b-next').onclick=nextEp;
- $('#b-mute').onclick=()=>{v.muted=!v.muted;if(!v.muted&&v.volume===0)v.volume=1};
- $('#b-pip').onclick=togglePip;$('#b-fs').onclick=toggleFs;
- $('#nbgo').onclick=nextEp;$('#nbx').onclick=cancelNext;
- $('#mode').onclick=()=>{mode=mode==='embed'?'auto':'embed';load(mode==='embed'?0:(v.currentTime||0))};
- let ct=null;
- $('#surf').onclick=e=>{
-  poke();
-  if(ct){clearTimeout(ct);ct=null;const r=e.offsetX/e.currentTarget.clientWidth;if(r<.35)seekBy(-10);else if(r>.65)seekBy(10);else toggleFs()}
-  else ct=setTimeout(()=>{ct=null;toggle()},240);
- };
- const sk=$('#seek');let drag=false;
- const seekTo=e=>{const r=sk.getBoundingClientRect();if(v.duration){v.currentTime=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width))*v.duration;upd()}};
- sk.onpointerdown=e=>{drag=true;sk.setPointerCapture(e.pointerId);seekTo(e)};
- sk.onpointermove=e=>{if(drag)seekTo(e)};
- sk.onpointerup=sk.onpointercancel=()=>{drag=false};
- v.onplay=v.onpause=syncPlay;
- v.onvolumechange=syncMute;
- v.onloadedmetadata=upd;
- v.onprogress=upd;
- v.onwaiting=()=>pw.classList.add('buf');
- v.onplaying=v.oncanplay=()=>pw.classList.remove('buf');
- v.onerror=()=>{if(!pw.classList.contains('emb')&&!hls){toast('Không phát được video, chuyển sang Embed.',2600);load(0,true)}};
- v.ontimeupdate=()=>{upd();const n=Date.now();if(n-lastSave>5000&&v.currentTime>5){lastSave=n;ls.set(posKey,{si,ei,t:Math.floor(v.currentTime)})}};
- v.onended=()=>{ls.set(posKey,{si,ei,t:0});ei<eps().length-1?showNext():toast('Bạn đã xem hết phim.',2400)};
- ['mousemove','touchstart','focusin'].forEach(ev=>pw.addEventListener(ev,poke,{passive:true}));
- document.onfullscreenchange=document.onwebkitfullscreenchange=()=>{$('#b-fs').innerHTML=ic(fsEl()?'xfs':'fs')};
- document.onkeydown=e=>{
-  if(!pw.isConnected||pw.classList.contains('emb')||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
-  const k=e.key;
-  if(k===' '&&e.target.tagName!=='BUTTON')toggle();
-  else if(k==='k')toggle();
-  else if(k==='ArrowRight')seekBy(10);
-  else if(k==='ArrowLeft')seekBy(-10);
-  else if(k==='f')toggleFs();
-  else if(k==='m')v.muted=!v.muted;
-  else if(k==='n')nextEp();
-  else return;
-  e.preventDefault();poke();
- };
- $('#b-fs').innerHTML=ic('fs');syncMute();
- drawEps();load(t0);
-
- // các phần khác của phim
- const base=(d.name||'').replace(/\s*[\(\[]?\s*(?:phần|season|mùa|ss)\s*\d+\s*[\)\]]?\s*$/i,'').trim();
- if(base.length>1)api(src,SRC[src].q(encodeURIComponent(base),1)).then(j=>{
-  let L=items(j,src).filter(x=>x.name.toLowerCase().startsWith(base.toLowerCase()));
-  if(!L.some(x=>x.slug===slug))L.unshift({slug,name:d.name});
-  if(L.length<2||!pw.isConnected)return;
-  partsHtml=`<div class="parts"><h4>Các phần của phim</h4><div class="chips">${L.slice(0,10).map(x=>`<button class="chip ${x.slug===slug?'on':''}" data-p="${esc(x.slug)}">${esc(x.name)}</button>`).join('')}</div></div>`;
-  drawEps();
- }).catch(()=>{});
-}
-
-$('#nav').onclick=e=>{
- const b=e.target.closest('button'); if(!b)return;
- st={...st,v:b.dataset.v,g:null,p:1,from:null}; render();
-};
-$('#q').addEventListener('keydown',e=>{
- if(e.key==='Enter'&&e.target.value.trim()){st={...st,v:'search',q:e.target.value.trim(),p:1};render()}
-});
-const sr=$('#srch'), qi=$('#q');
-const go=()=>{const v=qi.value.trim();if(v){st={...st,v:'search',q:v,p:1};render()}};
-$('#sbtn').onclick=()=>{
- if(sr.classList.contains('open')&&qi.value.trim())return go();
- sr.classList.toggle('open');
- if(sr.classList.contains('open'))qi.focus();
-};
-qi.addEventListener('keydown',e=>{if(e.key==='Escape'){qi.value='';sr.classList.remove('open');qi.blur()}});
-qi.addEventListener('blur',()=>{if(!qi.value.trim())setTimeout(()=>sr.classList.remove('open'),150)});
-let dip=null;
-const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
-const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-const showBar=()=>{if(!standalone()&&!ls.get('rd_inst',0))$('#ibar').hidden=false};
-const hideBar=()=>{$('#ibar').hidden=true};
-function installApp(){
- if(dip){dip.prompt();dip.userChoice.finally(()=>{dip=null;hideBar()});return}
- $('#isteps').innerHTML=isIOS()
-  ?'<li>Mở trang này bằng Safari.</li><li>Bấm nút Chia sẻ (hình vuông có mũi tên lên) ở thanh dưới.</li><li>Cuộn xuống và chọn “Thêm vào Màn hình chính”.</li><li>Bấm “Thêm” ở góc trên bên phải.</li>'
-  :'<li>Bấm nút menu ⋮ của trình duyệt.</li><li>Chọn “Thêm vào màn hình chính” hoặc “Cài đặt ứng dụng”.</li><li>Xác nhận “Thêm”.</li>';
- $('#isheet').hidden=false;
-}
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;showBar()});
-addEventListener('appinstalled',()=>{dip=null;hideBar()});
-$('#ibtn').onclick=()=>{hideBar();installApp()};
-$('#ix').onclick=()=>{ls.set('rd_inst',1);hideBar()};
-$('#iok').onclick=()=>{$('#isheet').hidden=true};
-$('#isheet').onclick=e=>{if(e.target.id==='isheet')e.target.hidden=true};
-if(matchMedia('(max-width:720px)').matches)setTimeout(showBar,2500);
-if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
-
-function updateTopAva(){
- const b=$('#avtb'), a=getAva();
- b.innerHTML=a?`<img src="${esc(a)}" alt="">`:esc((user||'K')[0].toUpperCase());
-}
-$('#avtb').onclick=()=>{st={...st,v:'me',g:null,p:1};render()};
-const topEl=$('.top'), onScroll=()=>topEl.classList.toggle('solid',scrollY>60);
-addEventListener('scroll',onScroll,{passive:true});onScroll();
-render();
+try{const ic0=document.querySelector('link[rel=apple-touch-icon]').href,fi=document.createElement('link');fi.rel='icon';fi.href=ic0;document.head.append(fi);const mf={name:'Flix Anime',short_name:'Flix Anime',start_url:location.href.split('#')[0],display:'standalone',background_color:'#0b0710',theme_color:'#ff4f9a',icons:[{src:ic0,sizes:'192x192',type:'image/png'},{src:ic0,sizes:'512x512',type:'image/png',purpose:'any'}]},l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/manifest+json'}));document.head.append(l)}catch(e){}
+addEventListener('hashchange',route);renderAcc();route();
+const resync=async()=>{const u=db.cur&&db.u[db.cur];if(await pullSync(u,false))route()};
+resync();document.addEventListener('visibilitychange',()=>{if(!document.hidden)resync()});
 </script>
 </body>
 </html>
